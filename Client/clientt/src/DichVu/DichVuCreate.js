@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../css/StudentList.css'; // Import file CSS
 
 function StudentList() {
   const [services, setServices] = useState([]);
@@ -7,28 +8,27 @@ function StudentList() {
   useEffect(() => {
     axios.get('http://localhost:3000/student')
       .then((response) => {
-        // Kiểm tra dữ liệu từ API và lưu vào state
-        console.log(response.data);  // In dữ liệu để kiểm tra
-        setServices(response.data.result); // Lưu dữ liệu vào state
+        console.log(response.data);
+        setServices(response.data.result);
       })
       .catch((error) => {
         console.error('Error fetching data: ', error);
       });
-  }, []);  // [] để chỉ chạy 1 lần khi component được render lần đầu
+  }, []);
 
   return (
-    
-    <div>
-      <h1>Danh sách Dịch Vụ</h1>
-      <ul>
+    <div className="student-list-container">
+      <h1 className="student-list-title">Danh sách Dịch Vụ</h1>
+      <ul className="service-list">
         {services.length > 0 ? (
           services.map((service) => (
-            <li key={service.MaDV}>
-              {service.TenDV} - {service.Gia.toLocaleString()} VNĐ
+            <li key={service.MaDV} className="service-item">
+              <div className="service-name">{service.TenDV}</div>
+              <div className="service-price">{service.Gia.toLocaleString()} VNĐ</div>
             </li>
           ))
         ) : (
-          <li>Không có dịch vụ nào</li>
+          <li className="no-service">Không có dịch vụ nào</li>
         )}
       </ul>
     </div>

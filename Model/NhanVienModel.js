@@ -34,11 +34,13 @@ module.exports = function() {
 
     this.update = async function(newData, result) {
         var pool = await conn;
-        var sqlStrin = "UPDATE DichVu SET TenDV=@tendv, Gia=@gia WHERE MADV=@madv";
+        var sqlStrin = "UPDATE NhanVien SET FirstNameNV=@firstnamenv, LastNameNV=@lastnamenv, ChucVu=@chucvu, DiaChi=@diachi WHERE NhanVienID=@nhanvienid";
         return await pool.request()
-            .input('tendv', sql.VarChar, newData.tendv)
-            .input('gia', sql.Int, newData.gia)
-            .input('madv', sql.Int, newData.madv)
+            .input('firstnamenv', sql.VarChar, newData.firstnamenv)
+            .input('lastnamenv', sql.VarChar, newData.lastnamenv)
+            .input('chucvu', sql.VarChar, newData.chucvu)
+            .input('diachi', sql.VarChar, newData.diachi)
+            .input('nhanvienid', sql.Int, newData.nhanvienid)
             .query(sqlStrin, function(err, data) {
                 if (err) {
                     result(err, null); 
@@ -50,9 +52,9 @@ module.exports = function() {
 
     this.delete = async function(id, result) {
         var pool = await conn;
-        var sqlStrin = "DELETE FROM DichVu WHERE MaDV=@madv";
+        var sqlStrin = "DELETE FROM NhanVien WHERE NhanVienID=@nhanvienid";
         return await pool.request()
-            .input('madv', sql.Int, id)
+            .input('nhanvienid', sql.Int, id)
             .query(sqlStrin, function(err, data) {
                 if (err) {
                     result(err, null); 
