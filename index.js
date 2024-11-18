@@ -10,8 +10,10 @@ app.use(bodyParser.json());
 require('./Router/StudentRouter')(app);
 //Nhan Vien
 require('./Router/NhanVien')(app)
-//
+//Loai Phong
 require('./Router/LoaiPhongRouter')(app)
+//Rooms
+require('./Router/RoomRouter')(app)
 
 // Mở cổng server
 app.listen(3000, function() {

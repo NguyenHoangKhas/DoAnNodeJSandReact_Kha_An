@@ -4,13 +4,13 @@ import './index.css';
 //import StudentList from './DichVu/DichVuCreate';
 import reportWebVitals from './reportWebVitals';
 //import NhanVienCreate from './NhanVien/NhanVienCreate';
-//import NhanVienList from './NhanVien/NhanVienList';
-import App from './App';
+import NhanVienList from './NhanVien/NhanVienList';
+//import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <NhanVienList />
   </React.StrictMode>
 );
 

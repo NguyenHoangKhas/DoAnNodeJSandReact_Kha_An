@@ -1,13 +1,13 @@
 module.exports=function(app){
     var LoaiPhongController=require('../Contronller/LoaiPhongController')
     //goi den du lieu
-    app.get('/LoaiPhong', LoaiPhongController.getList);
+    app.get('/loaiphong', LoaiPhongController.getList);
     //uptade table dichvu
-    app.put('/LoaiPhong', LoaiPhongController.update );
+    app.put('/loaiphong', LoaiPhongController.update );
     
     
     //Insert du lieu
-    app.post('/LoaiPhong', LoaiPhongController.addNew);
+    app.post('/loaiphong', LoaiPhongController.addNew);
     //xoa du lieu
-    app.delete('/LoaiPhong/:maloaiphong',LoaiPhongController.delete);
+    app.delete('/loaiphong/:maloaiphong',LoaiPhongController.delete);
 }
