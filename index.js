@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
-const { VarChar, Int } = require('msnodesqlv8');
+const { VarChar, Int } = require('mssql');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -18,6 +18,6 @@ require('./Router/RoomRouter')(app)
 require('./Router/CustomersRouter')(app)
 
 // Mở cổng server
-app.listen(3000, function() {
+app.listen(3000, function () {
     console.log("Ứng dụng đang chạy trên cổng 3000");
 });

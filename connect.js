@@ -1,10 +1,16 @@
-const sql = require('mssql/msnodesqlv8');
+const sql = require('mssql');
 
+// Cấu hình kết nối
 const config = {
-    driver: "msnodesqlv8",
-    connectionString: "DSN=TestSQLServer;UID=sa;PWD=12345;"
+    user: 'sa',                 // Tên tài khoản SQL Server
+    password: '12345',          // Mật khẩu
+    server: 'localhost',
+    database: 'HotelManagement', // Tên cơ sở dữ liệu
+    options: {
+        encrypt: false,         // Bật mã hóa nếu cần thiết
+        enableArithAbort: true  // Giải quyết lỗi toán học
+    }
 };
-
 
 // Hàm để kết nối và trả về đối tượng kết nối
 const conn = new sql.ConnectionPool(config).connect()
@@ -17,6 +23,7 @@ const conn = new sql.ConnectionPool(config).connect()
         throw err;
     });
 
+// Export đối tượng kết nối và module sql
 module.exports = {
     conn: conn,
     sql: sql
