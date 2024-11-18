@@ -4,13 +4,15 @@ import './index.css';
 //import StudentList from './DichVu/DichVuCreate';
 import reportWebVitals from './reportWebVitals';
 //import NhanVienCreate from './NhanVien/NhanVienCreate';
-import NhanVienList from './NhanVien/NhanVienList';
+//import NhanVienList from './NhanVien/NhanVienList';
 //import App from './App';
-
+//import DichVuList from './DichVu/DichVuList';
+//import LoaiPhongList from './LoaiPhong/LoaiPhongList';
+import LoaiPhongCreate from './LoaiPhong/LoaiPhongCreate';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <NhanVienList />
+    <LoaiPhongCreate />
   </React.StrictMode>
 );
 

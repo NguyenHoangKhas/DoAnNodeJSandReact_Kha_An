@@ -1,0 +1,68 @@
+/* Đặt toàn bộ bảng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+    color: #333;
+    text-transform: uppercase;
+  }
+  
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Nút chỉnh sửa */
+  button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  button:first-of-type {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  button:last-of-type {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  button:last-of-type:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Tiêu đề */
+  h1 {
+    text-align: center;
+    color: #444;
+    margin: 20px 0;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+  }
+  

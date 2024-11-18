@@ -14,6 +14,8 @@ require('./Router/NhanVien')(app)
 require('./Router/LoaiPhongRouter')(app)
 //Rooms
 require('./Router/RoomRouter')(app)
+//Customers
+require('./Router/CustomersRouter')(app)
 
 // Mở cổng server
 app.listen(3000, function() {
