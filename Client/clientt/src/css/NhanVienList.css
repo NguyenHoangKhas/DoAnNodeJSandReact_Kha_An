@@ -1,44 +1,73 @@
-.nhanvien-list-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Đặt chiều rộng và căn giữa container */
+.containerCustom {
+  max-width: 90%;
+  /* Giảm chiều rộng tối đa để cho nhiều không gian hơn */
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề căn giữa */
+.containerCustom h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Tùy chỉnh bảng */
+.tableCustom {
+  width: 100%;
+  /* Đặt chiều rộng bảng là 100% để nó chiếm hết chiều rộng của container */
+  border-collapse: collapse;
+  overflow-x: auto;
+  /* Thêm khả năng cuộn ngang cho bảng */
+  display: block;
+  /* Đảm bảo bảng có thể cuộn */
+}
+
+/* Tiêu đề bảng */
+.tableCustom th {
+  background-color: #4CAF50 !important;
+  color: white;
+  text-align: left;
+  padding: 12px;
+  /* Đặt padding cho tiêu đề */
+}
+
+/* Ô bảng */
+.tableCustom td,
+.tableCustom th {
+  padding: 12px;
+  /* Padding cho ô bảng */
+  border-bottom: 1px solid #ddd;
+  /* Đường viền dưới cho ô bảng */
+}
+
+/* Nút hành động */
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  /* Đặt màu chữ cho nút */
+  padding: 10px 15px;
+  /* Thêm padding cho nút */
+  cursor: pointer;
+  /* Thay đổi con trỏ khi di chuột lên nút */
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  /* Thay đổi màu nền khi di chuột */
+}
+
+/* Đảm bảo tính năng phản hồi */
+@media (max-width: 768px) {
+
+  .tableCustom th,
+  .tableCustom td {
+    padding: 8px;
+    /* Giảm padding cho màn hình nhỏ */
   }
-  
-  .nhanvien-list-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .nhanvien-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .nhanvien-table th,
-  .nhanvien-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .nhanvien-table th {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .nhanvien-table td button {
-    padding: 6px 12px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .nhanvien-table td button:hover {
-    background-color: #c82333;
-  }
-  
+}

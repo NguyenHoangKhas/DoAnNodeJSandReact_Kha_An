@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.navbar-brand {
+  font-size: 2rem !important;
+  /* Thay đổi kích thước chữ */
+  font-weight: 500;
+  color: #39FF14 !important;
+}
+
+.mainContent {
+  margin: 5rem;
+}
+
+/* App.css */
+.navbar .nav-item.active .nav-link {
+  /* Màu nền khi active */
+  color: #e69c47;
+  /* Độ đậm*/
+  font-weight: 500;
+  /* Màu chữ khi active */
+  border-radius: 5px;
+  /* Tùy chọn: thêm bo góc cho các liên kết active */
+}
+
+.navbar .nav-item.active .nav-link:hover {
+  background-color: #fff;
+  /* Màu nền khi hover */
+  color: #000;
+  /* Màu chữ khi hover */
+}
