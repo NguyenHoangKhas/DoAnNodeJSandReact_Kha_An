@@ -19,6 +19,9 @@ const Header = () => {
                             <li className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>
                                 <Link className="nav-link" to="/">TRANG CHỦ</Link>
                             </li>
+                            <li className={`nav-item ${location.pathname.startsWith('/phong') ? 'active' : ''}`}>
+                                <Link className="nav-link" to="/phong">PHÒNG</Link>
+                            </li>
                             <li className={`nav-item ${location.pathname.startsWith('/nhanvien') ? 'active' : ''}`}>
                                 <Link className="nav-link" to="/nhanvien">NHÂN VIÊN</Link>
                             </li>
@@ -28,6 +31,20 @@ const Header = () => {
                             <li className={`nav-item ${location.pathname.startsWith('/loaiPhong') ? 'active' : ''}`}>
                                 <Link className="nav-link" to="/loaiPhong">LOẠI PHÒNG</Link>
                             </li>
+                            <div className="dropdown">
+                                <button className="btn dropdown-toggle" type="button" id="avatarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="https://files.fullstack.edu.vn/f8-prod/user_photos/287638/63d64505e7a08.jpg" alt="Avatar" className="rounded-circle" width="25" height="25" />
+                                </button>
+                                <div className="dropdown-menu" aria-labelledby="avatarDropdown">
+                                    <Link className="nav-link text-dark" to="/register">đăng ký</Link>
+                                    <Link className="nav-link text-dark" to="/login">đăng nhập</Link>
+                                    <div className="dropdown-divider"></div>
+                                    <span onClick={() => {
+                                        localStorage.clear("token");
+                                        window.location.href = '/login';
+                                    }}>Đăng xuất</span>
+                                </div>
+                            </div>
                         </ul>
                     </div>
                 </div>

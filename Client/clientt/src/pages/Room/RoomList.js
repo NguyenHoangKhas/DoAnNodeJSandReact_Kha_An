@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../css/RoomList.css';
+import '../../css/RoomList.css';
 
 const RoomList = () => {
   const [rooms, setRooms] = useState([]); // State lưu danh sách phòng
@@ -55,10 +55,10 @@ const RoomList = () => {
       <div className="room-grid">
         {currentRooms.map((room) => (
           <div className="room-card" key={room.RoomID}>
-            <img 
-              src={room.ImageUrl} 
-              alt={room.RoomType} 
-              className="room-image" 
+            <img
+              src={room.ImageUrl}
+              alt={room.RoomType}
+              className="room-image"
             />
             <div className="room-details">
               <h2 className="room-number">{room.RoomNumber}</h2>

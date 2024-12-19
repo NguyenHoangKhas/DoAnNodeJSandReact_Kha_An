@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../css/RoomCreate.css';
+import '../../css/RoomCreate.css';
 
 const RoomCreate = () => {
   const [roomNumber, setRoomNumber] = useState('');

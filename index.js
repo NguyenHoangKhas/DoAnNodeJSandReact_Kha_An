@@ -21,6 +21,8 @@ require('./Router/BookingRouter')(app)
 
 require('./Router/HoaDonRouter')(app)
 
+require('./Router/Account')(app)
+
 // Mở cổng server
 app.listen(3000, function () {
     console.log("Ứng dụng đang chạy trên cổng 3000");
