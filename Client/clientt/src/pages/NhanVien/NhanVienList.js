@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 import { Link } from 'react-router-dom';
 import '../../css/NhanVienList.css';
 
@@ -9,7 +9,7 @@ function NhanVienList() {
 
   // Lấy danh sách nhân viên từ API
   useEffect(() => {
-    axios
+    apiGetTokenClient
       .get('http://localhost:3000/nhanvien')
       .then((response) => {
         if (response.data.error) {
@@ -29,7 +29,7 @@ function NhanVienList() {
   // Xử lý xóa nhân viên
   const handleDelete = (nhanVienID) => {
     if (window.confirm('Bạn có chắc chắn muốn xóa nhân viên này?')) {
-      axios
+      apiGetTokenClient
         .delete(`http://localhost:3000/nhanvien/${nhanVienID}`)
         .then((response) => {
           if (response.data.error) {

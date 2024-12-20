@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 import { Link } from 'react-router-dom';
 import '../../css/NhanVienList.css';
 
@@ -18,7 +18,7 @@ const LoaiPhongList = () => {
 
     const fetchLoaiPhong = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/loaiphong');
+            const response = await apiGetTokenClient.get('http://localhost:3000/loaiphong');
             setLoaiPhong(response.data.result);
         } catch (error) {
             console.error('Error fetching LoaiPhong data:', error);
@@ -28,7 +28,7 @@ const LoaiPhongList = () => {
     const deleteLoaiPhong = async (maloaiphong) => {
         if (window.confirm('Bạn có chắc chắn muốn xóa loại phòng này?')) {
             try {
-                await axios.delete(`http://localhost:3000/loaiphong/${maloaiphong}`);
+                await apiGetTokenClient.delete(`http://localhost:3000/loaiphong/${maloaiphong}`);
                 fetchLoaiPhong(); // Refresh data after deletion
                 alert('Xóa loại phòng thành công!');
             } catch (error) {
@@ -57,7 +57,7 @@ const LoaiPhongList = () => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put('http://localhost:3000/loaiphong', {
+            await apiGetTokenClient.put('http://localhost:3000/loaiphong', {
                 maloaiphong: editingItem,
                 ...formData,
             });

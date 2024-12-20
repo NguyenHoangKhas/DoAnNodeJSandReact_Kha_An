@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 import '../../css/RoomCreate.css';
 
 const RoomCreate = () => {
@@ -23,7 +23,7 @@ const RoomCreate = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/room', newRoom);
+      const response = await apiGetTokenClient.post('http://localhost:3000/room', newRoom);
       if (response.data.error) {
         setMessage('Thêm phòng thất bại: ' + response.data.error);
       } else {

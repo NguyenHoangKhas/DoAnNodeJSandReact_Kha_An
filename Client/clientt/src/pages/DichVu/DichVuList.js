@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 import { Link } from 'react-router-dom';
 import '../../css/NhanVienList.css'
 
@@ -10,7 +10,7 @@ function DichVuList() {
   // Lấy danh sách dịch vụ từ API
   const fetchServices = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/student'); // Thay URL theo API của bạn
+      const response = await apiGetTokenClient.get('http://localhost:3000/student'); // Thay URL theo API của bạn
       setServices(response.data.result);
     } catch (error) {
       console.error("Lỗi khi tải dữ liệu:", error);
@@ -23,7 +23,7 @@ function DichVuList() {
   const deleteService = async (madv) => {
     if (window.confirm(`Bạn có chắc chắn muốn xóa dịch vụ với mã ${madv}?`)) {
       try {
-        await axios.delete(`http://localhost:3000/student/${madv}`);
+        await apiGetTokenClient.delete(`http://localhost:3000/student/${madv}`);
         alert("Xóa thành công!");
         setServices(services.filter((service) => service.MaDV !== madv));
       } catch (error) {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 import '../../css/StudentList.css'; // Import file CSS
 
 function StudentList() {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/student')
+    apiGetTokenClient.get('http://localhost:3000/student')
       .then((response) => {
         console.log(response.data);
         setServices(response.data.result);

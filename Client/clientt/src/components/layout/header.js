@@ -2,9 +2,12 @@
 import { Link } from 'react-router-dom';
 import MainContent from './mainContent';
 import { useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+import { DataContext } from '../../Provider/dataProvider';
 import '../../index.css'
 const Header = () => {
     const location = useLocation();  // Hook để lấy URL hiện tại
+    const { data } = useContext(DataContext);
     return (
         <>
             {/* Header */}
@@ -20,22 +23,28 @@ const Header = () => {
                                 <Link className="nav-link" to="/">TRANG CHỦ</Link>
                             </li>
                             <li className={`nav-item ${location.pathname.startsWith('/phong') ? 'active' : ''}`}>
-                                <Link className="nav-link" to="/phong">PHÒNG</Link>
+                                <Link className="nav-link" to="/room">PHÒNG</Link>
                             </li>
-                            <li className={`nav-item ${location.pathname.startsWith('/nhanvien') ? 'active' : ''}`}>
-                                <Link className="nav-link" to="/nhanvien">NHÂN VIÊN</Link>
-                            </li>
-                            <li className={`nav-item ${location.pathname.startsWith('/dichVu') ? 'active' : ''}`}>
-                                <Link className="nav-link" to="/dichVu">DỊCH VỤ</Link>
-                            </li>
-                            <li className={`nav-item ${location.pathname.startsWith('/loaiPhong') ? 'active' : ''}`}>
-                                <Link className="nav-link" to="/loaiPhong">LOẠI PHÒNG</Link>
-                            </li>
+
+                            {data?.role === "1" && (
+                                <>
+                                    <li className={`nav-item ${location.pathname.startsWith('/nhanvien') ? 'active' : ''}`}>
+                                        <Link className="nav-link" to="/nhanvien">NHÂN VIÊN</Link>
+                                    </li>
+                                    <li className={`nav-item ${location.pathname.startsWith('/dichVu') ? 'active' : ''}`}>
+                                        <Link className="nav-link" to="/dichVu">DỊCH VỤ</Link>
+                                    </li>
+                                    <li className={`nav-item ${location.pathname.startsWith('/loaiPhong') ? 'active' : ''}`}>
+                                        <Link className="nav-link" to="/loaiPhong">LOẠI PHÒNG</Link>
+                                    </li>
+                                </>
+                            )}
                             <div className="dropdown">
                                 <button className="btn dropdown-toggle" type="button" id="avatarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="https://files.fullstack.edu.vn/f8-prod/user_photos/287638/63d64505e7a08.jpg" alt="Avatar" className="rounded-circle" width="25" height="25" />
                                 </button>
                                 <div className="dropdown-menu" aria-labelledby="avatarDropdown">
+                                    <p>Xin chào {data.username}</p>
                                     <Link className="nav-link text-dark" to="/register">đăng ký</Link>
                                     <Link className="nav-link text-dark" to="/login">đăng nhập</Link>
                                     <div className="dropdown-divider"></div>

@@ -3,9 +3,11 @@ const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
 const { VarChar, Int } = require('mssql');
+const auth = require('./config/authMiddleWare');
 
 app.use(cors());
 app.use(bodyParser.json());
+app.all('*', auth);
 //Dich Vu
 require('./Router/StudentRouter')(app);
 //Nhan Vien

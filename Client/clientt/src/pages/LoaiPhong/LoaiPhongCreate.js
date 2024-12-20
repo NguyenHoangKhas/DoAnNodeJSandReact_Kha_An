@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 import '../../css/LoaiPhongCreate.css';
 
 const LoaiPhongCreate = () => {
@@ -20,7 +20,7 @@ const LoaiPhongCreate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/loaiphong', formData);
+            await apiGetTokenClient.post('http://localhost:3000/loaiphong', formData);
             alert('Thêm loại phòng thành công!');
             setFormData({
                 tenloaiphong: '',

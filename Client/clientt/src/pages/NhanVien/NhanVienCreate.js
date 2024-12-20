@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import '../../css/NhanVienCreate.css';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 
 function NhanVienCreate() {
   const [nhanVien, setNhanVien] = useState({
@@ -25,7 +25,7 @@ function NhanVienCreate() {
     }
 
     // Gửi dữ liệu lên server qua API POST
-    axios
+    apiGetTokenClient
       .post('http://localhost:3000/nhanvien', nhanVien)
       .then((response) => {
         if (response.data.error) {
