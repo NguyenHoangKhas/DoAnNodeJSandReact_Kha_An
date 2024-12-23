@@ -54,17 +54,33 @@ module.exports = function() {
             });
     };
 
-    this.delete = async function(id, result) {
+    this.delete = async function(id) {
+        try {
+            const pool = await conn;
+            const sqlString = "DELETE FROM Rooms WHERE RoomID=@roomid";
+            const result = await pool.request()
+                .input('roomid', sql.Int, id)
+                .query(sqlString);
+            return result;
+        } catch (err) {
+            throw err;  // Nếu có lỗi, ném lỗi ra ngoài
+        }
+    };
+    
+
+    this.searchByPrice = async function(minPrice, maxPrice, result) {
         var pool = await conn;
-        var sqlStrin = "DELETE FROM Rooms WHERE RoomID=@roomid";
+        var sqlStrin = "SELECT * FROM Rooms WHERE PricePerNight BETWEEN @minPrice AND @maxPrice";
         return await pool.request()
-            .input('roomid', sql.Int, id)
+            .input('minPrice', sql.Decimal, minPrice)
+            .input('maxPrice', sql.Decimal, maxPrice)
             .query(sqlStrin, function(err, data) {
                 if (err) {
-                    result(err, null); 
+                    result(err, null);
                 } else {
-                    result(null, data); 
+                    result(null, data.recordset);
                 }
             });
     };
+    
 };
