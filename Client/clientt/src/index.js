@@ -6,17 +6,17 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 //import NhanVienCreate from './NhanVien/NhanVienCreate';
 // import NhanVienList from './NhanVien/NhanVienList';
-//import App from './App';
+import App from './App';
 //import DichVuList from './DichVu/DichVuList';
 // import LoaiPhongList from './LoaiPhong/LoaiPhongList';
 // import LoaiPhongCreate from './LoaiPhong/LoaiPhongCreate';
-import TotalAmount from './pages/HoaDon/TotalAmount ';
+//import TotalAmount from './pages/HoaDon/TotalAmount ';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <TotalAmount />
+      <App />
     </Router>
   </React.StrictMode>
 );
