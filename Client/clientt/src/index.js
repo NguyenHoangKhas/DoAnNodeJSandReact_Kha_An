@@ -10,6 +10,7 @@ import App from './App';
 //import DichVuList from './DichVu/DichVuList';
 // import LoaiPhongList from './LoaiPhong/LoaiPhongList';
 // import LoaiPhongCreate from './LoaiPhong/LoaiPhongCreate';
+//import TotalAmount from './pages/HoaDon/TotalAmount ';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

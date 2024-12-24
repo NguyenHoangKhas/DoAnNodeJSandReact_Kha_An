@@ -20,7 +20,12 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-    model.delete(req.body.madv, function(err, data) {
+    model.delete(req.params.roomid, function(err, data) {
+        res.send({ result: data, error: err });
+    });
+};
+exports.searchByPrice = function(req, res) {
+    model.searchByPrice(req.query.minPrice, req.query.maxPrice, function(err, data) {
         res.send({ result: data, error: err });
     });
 };
