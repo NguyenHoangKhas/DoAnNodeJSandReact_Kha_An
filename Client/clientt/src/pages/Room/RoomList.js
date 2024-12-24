@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../css/RoomList.css';
+import { useContext } from 'react';
+import { DataContext } from '../../Provider/dataProvider';
 
 const RoomList = () => {
-  const [rooms, setRooms] = useState([]); // State lưu danh sách phòng
-  const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
+  // Dữ liệu data payload của user
+  const { data } = useContext(DataContext);
+
+  // State lưu danh sách phòng
+  const [rooms, setRooms] = useState([]); const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
   const [error, setError] = useState(null); // Trạng thái lỗi
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
   const roomsPerPage = 6; // Số phòng mỗi trang
@@ -48,10 +54,19 @@ const RoomList = () => {
   if (loading) return <p className="loading">Đang tải dữ liệu...</p>;
   if (error) return <p className="error">{error}</p>;
 
+
   // Render danh sách phòng
   return (
     <div className="room-list-container">
-      <h1 className="title">Danh sách phòng</h1>
+      <h1 className="title">Danh sách phòng
+        {data?.role === "1" &&
+          (<>
+            &nbsp;<Link to="/themPhong" className="btn btn-primary">
+              Thêm Phòng
+            </Link>
+          </>)
+        }
+      </h1>
       <div className="room-grid">
         {currentRooms.map((room) => (
           <div className="room-card" key={room.RoomID}>

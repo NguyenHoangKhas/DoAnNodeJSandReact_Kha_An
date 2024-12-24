@@ -8,21 +8,45 @@ const RoomCreate = () => {
   const [pricePerNight, setPricePerNight] = useState('');
   const [availability, setAvailability] = useState(true);
   const [loaiphongid, setLoaiPhongID] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageFile, setImageFile] = useState(null); // Lưu trữ tệp hình ảnh
   const [message, setMessage] = useState('');
+
+  // Xử lý tải ảnh
+  const handleImageUpload = async () => {
+    if (!imageFile) return; // Không thực hiện nếu không có tệp
+
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    try {
+      const response = await apiGetTokenClient.post(
+        'http://localhost:3000/upload-image',
+        formData,
+        { headers: { 'Content-Type': 'multipart/form-data' } } // Chỉ định header
+      );
+      // Giả sử máy chủ trả về tên tệp mới
+      const newImageUrl = response.data.imageUrl; // Lưu tên tệp mới
+      setMessage('Tải ảnh lên thành công!');
+      return newImageUrl; // Trả về tên tệp mới
+    } catch (error) {
+      setMessage('Có lỗi xảy ra khi tải ảnh!');
+      throw error; // Ném lỗi để xử lý bên ngoài
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newRoom = {
-      roomnumber: roomNumber,
-      roomtype: roomType,
-      pricepernight: parseFloat(pricePerNight),
-      availability,
-      loaiphongid: parseInt(loaiphongid, 10),
-      imageurl: imageUrl,
-    };
-
     try {
+      const newImageUrl = await handleImageUpload(); // Gọi tải lên ảnh và nhận tên tệp mới
+      const newRoom = {
+        roomnumber: roomNumber,
+        roomtype: roomType,
+        pricepernight: parseFloat(pricePerNight),
+        availability,
+        loaiphongid: parseInt(loaiphongid, 10),
+        imageurl: newImageUrl, // Sử dụng tên tệp mới
+      };
+
       const response = await apiGetTokenClient.post('http://localhost:3000/room', newRoom);
       if (response.data.error) {
         setMessage('Thêm phòng thất bại: ' + response.data.error);
@@ -41,7 +65,7 @@ const RoomCreate = () => {
     setPricePerNight('');
     setAvailability(true);
     setLoaiPhongID('');
-    setImageUrl('');
+    setImageFile(null); // Đặt lại tệp hình ảnh
   };
 
   return (
@@ -95,11 +119,14 @@ const RoomCreate = () => {
           />
         </label>
         <label>
-          URL Hình ảnh:
+          Hoặc tải ảnh lên:
           <input
-            type="text"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              setImageFile(e.target.files[0]); // Lưu tệp hình ảnh
+              // Không cần phải thiết lập imageUrl ở đây vì nó sẽ được thiết lập sau khi tải lên
+            }}
           />
         </label>
         <button type="submit" className="add-room-button">Thêm Phòng</button>

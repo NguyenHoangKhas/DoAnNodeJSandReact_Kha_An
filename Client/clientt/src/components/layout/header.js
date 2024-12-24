@@ -44,9 +44,13 @@ const Header = () => {
                                     <img src="https://files.fullstack.edu.vn/f8-prod/user_photos/287638/63d64505e7a08.jpg" alt="Avatar" className="rounded-circle" width="25" height="25" />
                                 </button>
                                 <div className="dropdown-menu" aria-labelledby="avatarDropdown">
-                                    <p>Xin chào {data.username}</p>
-                                    <Link className="nav-link text-dark" to="/register">đăng ký</Link>
-                                    <Link className="nav-link text-dark" to="/login">đăng nhập</Link>
+                                    <p>Xin chào {data?.username || "bạn"}</p>
+                                    {data?.role == null ?
+                                        <>
+                                            <Link className="nav-link text-dark" to="/register">đăng ký</Link>
+                                            <Link className="nav-link text-dark" to="/login">đăng nhập</Link>
+                                        </>
+                                        : " "}
                                     <div className="dropdown-divider"></div>
                                     <span onClick={() => {
                                         localStorage.clear("token");
