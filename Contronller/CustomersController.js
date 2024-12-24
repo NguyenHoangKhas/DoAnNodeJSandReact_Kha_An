@@ -20,7 +20,8 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-    model.delete(req.body.madv, function(err, data) {
+    const customerId = req.params.customerid; // Lấy customerid từ URL
+    model.delete(customerId, function(err, data) {
         res.send({ result: data, error: err });
     });
 };

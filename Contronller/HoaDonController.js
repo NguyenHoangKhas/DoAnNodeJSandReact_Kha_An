@@ -20,10 +20,16 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    model.delete(req.body.madv, function (err, data) {
-        res.send({ result: data, error: err });
+    const { mahd } = req.params; // Lấy MaHD từ params
+    model.delete(mahd, function (err, data) {
+        if (err) {
+            res.status(500).send({ result: null, error: err });
+        } else {
+            res.send({ result: data, error: null });
+        }
     });
 };
+
 //thanh toan 
 // HoaDonController.js
 //tinh tien

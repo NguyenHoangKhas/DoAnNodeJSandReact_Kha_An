@@ -10,4 +10,6 @@ module.exports = function (app) {
     app.post('/room', RoomController.addNew);
     //xoa du lieu
     app.delete('/room/:roomid', RoomController.delete);
+
+    app.get('/room/search', RoomController.searchByPrice);
 }

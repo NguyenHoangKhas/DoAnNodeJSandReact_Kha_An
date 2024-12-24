@@ -19,8 +19,8 @@ exports.update = function(req, res) {
     });
 };
 
-exports.delete = function(req, res) {
-    model.delete(req.body.madv, function(err, data) {
+exports.delete = function (req, res) {
+    model.delete(req.params.nhanvienid, function (err, data) {
         res.send({ result: data, error: err });
     });
 };
