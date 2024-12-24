@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 
 const TotalAmount = () => {
   const [totalAmount, setTotalAmount] = useState(null);
@@ -21,16 +21,16 @@ const TotalAmount = () => {
       if (period === 'day' && dateInput) {
         // Chuyển đổi ngày từ định dạng 'YYYY-MM-DD' sang định dạng 'YYYY-MM-DDT00:00:00.000Z'
         const formattedDate = new Date(dateInput).toISOString(); // chuyển đổi sang ISO string
-        response = await axios.get(`http://localhost:3000/hoadon/total/day/${formattedDate}`);
+        response = await apiGetTokenClient.get(`http://localhost:3000/hoadon/total/day/${formattedDate}`);
       }
-      
+
       // Tính tổng tiền theo tuần
       else if (period === 'week' && weekInput && yearInput) {
-        response = await axios.get(`http://localhost:3000/hoadon/total/week/${weekInput}/${yearInput}`);
+        response = await apiGetTokenClient.get(`http://localhost:3000/hoadon/total/week/${weekInput}/${yearInput}`);
       }
       // Tính tổng tiền theo tháng
       else if (period === 'month' && monthInput && yearInput) {
-        response = await axios.get(`http://localhost:3000/hoadon/total/month/${monthInput}/${yearInput}`);
+        response = await apiGetTokenClient.get(`http://localhost:3000/hoadon/total/month/${monthInput}/${yearInput}`);
       }
 
       if (response && response.data.result !== null) {

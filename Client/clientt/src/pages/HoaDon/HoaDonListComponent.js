@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 
 function HoaDonListComponent() {
     const [hoaDonList, setHoaDonList] = useState([]);
@@ -8,7 +9,7 @@ function HoaDonListComponent() {
 
     // Lấy danh sách hóa đơn khi component được mount
     useEffect(() => {
-        axios.get('http://localhost:3000/hoadon') // Thay URL nếu cần thiết
+        apiGetTokenClient.get('http://localhost:3000/hoadon') // Thay URL nếu cần thiết
             .then((response) => {
                 const updatedHoaDonList = response.data.result.map(hoaDon => ({
                     ...hoaDon,
@@ -25,7 +26,7 @@ function HoaDonListComponent() {
 
     // Hàm xử lý thanh toán
     const handleThanhToan = (mahd) => {
-        axios.put(`http://localhost:3000/hoadon/${mahd}/thanh-toan`)  // Đảm bảo rằng URL này là đúng
+        apiGetTokenClient.put(`http://localhost:3000/hoadon/${mahd}/thanh-toan`)  // Đảm bảo rằng URL này là đúng
             .then((response) => {
                 console.log('Thanh toán thành công:', response.data);
                 // Cập nhật danh sách hóa đơn hoặc làm gì đó sau khi thanh toán
@@ -37,12 +38,15 @@ function HoaDonListComponent() {
                 }
             });
     };
-        
-    
+
+
 
     return (
         <div className="container mt-4">
-            <h2 className="text-center">Danh Sách Hóa Đơn</h2>
+            <h2 className="text-center">Danh Sách Hóa Đơn
+                &nbsp;<Link to="/tongHoaDon" className="btn btn-primary"><i className="bi bi-calculator"></i>
+                </Link>
+            </h2>
             {loading && <p>Đang tải...</p>}
             {error && <div className="alert alert-danger" role="alert">{error}</div>}
             {!loading && !error && hoaDonList.length === 0 && (
@@ -74,7 +78,7 @@ function HoaDonListComponent() {
                                 <td>{hoaDon.TrangThai}</td>
                                 <td>
                                     {hoaDon.TrangThai === 'Chưa thanh toán' && (
-                                        <button 
+                                        <button
                                             className="btn btn-success"
                                             onClick={() => handleThanhToan(hoaDon.MaHD)}
                                         >

@@ -37,6 +37,9 @@ const Header = () => {
                                     <li className={`nav-item ${location.pathname.startsWith('/loaiPhong') ? 'active' : ''}`}>
                                         <Link className="nav-link" to="/loaiPhong">LOẠI PHÒNG</Link>
                                     </li>
+                                    <li className={`nav-item ${location.pathname.startsWith('/hoaDonList') ? 'active' : ''}`}>
+                                        <Link className="nav-link" to="/hoaDonList">HÓA ĐƠN</Link>
+                                    </li>
                                 </>
                             )}
                             <div className="dropdown">

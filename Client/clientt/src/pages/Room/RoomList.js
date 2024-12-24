@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { DataContext } from '../../Provider/dataProvider';
 
 const RoomList = () => {
+  const { data } = useContext(DataContext);
   const [rooms, setRooms] = useState([]); // Danh sách phòng gốc
   const [filteredRooms, setFilteredRooms] = useState([]); // Danh sách phòng sau tìm kiếm
   const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
@@ -74,7 +75,16 @@ const RoomList = () => {
   // Render danh sách phòng
   return (
     <div className="room-list-container">
-      <h1 className="title">Danh sách phòng</h1>
+      <h1 className="title">Danh sách phòng
+        {data?.role === "1" &&
+          (<>
+            &nbsp;<Link to="/themPhong" className="btn btn-primary"><i className="bi bi-plus"></i>
+            </Link>
+            &nbsp;<Link to="/suaPhong" className="btn btn-primary"><i className="bi bi-pen"></i>
+            </Link>
+          </>)
+        }
+      </h1>
       {/* Ô tìm kiếm */}
       <div className="search-bar">
         <input

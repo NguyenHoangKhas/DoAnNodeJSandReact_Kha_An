@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const RoomList2 = () => {
   const [rooms, setRooms] = useState([]);
@@ -28,7 +27,6 @@ const RoomList2 = () => {
       console.error("Error deleting room:", err);
     }
   };
-
   return (
     <div className="container my-5">
       <h1 className="text-center mb-4">Room List</h1>

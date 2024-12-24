@@ -11,8 +11,13 @@ import HomePage from '../../pages/HomePage';
 import LoginPage from '../../pages/Account/loginPage';
 import RegisterPage from '../../pages/Account/registerPage';
 import NotFound from '../../pages/ErrorPage';
+import RoomList2 from '../../pages/Room/RoomList2';
+import TotalAmount from '../../pages/HoaDon/TotalAmount ';
+import HoaDonListComponent from '../../pages/HoaDon/HoaDonListComponent';
+
 import { useContext } from 'react';
 import { DataContext } from '../../Provider/dataProvider';
+
 const MainContent = () => {
     const { data } = useContext(DataContext);
     return (
@@ -29,6 +34,9 @@ const MainContent = () => {
                             <Route path="/addLoaiPhong" element={<LoaiPhongCreate />} />
                             <Route path="/loaiPhong" element={<LoaiPhongList />} />
                             <Route path="/themPhong" element={<RoomCreate />} />
+                            <Route path="/suaPhong" element={<RoomList2 />} />
+                            <Route path="/hoaDonList" element={<HoaDonListComponent />} />
+                            <Route path="/tongHoaDon" element={<TotalAmount />} />
                         </>
                     )}
                     {/* Client Routes */}
