@@ -1,112 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
+import BackButton from '../../components/backButton';
 
-const UpdateStudent = ({ studentId }) => {
-    const [student, setStudent] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        address: ''
+const UpdateDichVu = () => {
+    const [service, setService] = useState({
+        MaDV: '',
+        TenDV: '',
+        Gia: ''
     });
-
-    // Lấy thông tin sinh viên theo studentId khi component được mount
-    useEffect(() => {
-        axios.get(`/student/${studentId}`)
-            .then(response => {
-                setStudent(response.data.result);
-            })
-            .catch(error => {
-                console.error("There was an error fetching the student data:", error);
-            });
-    }, [studentId]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setStudent({ ...student, [name]: value });
+        setService({ ...service, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Gửi yêu cầu PUT để cập nhật thông tin sinh viên
-        axios.put('http://localhost:3000/student', student)
-            .then(response => {
-                alert("Student information updated successfully!");
-            })
-            .catch(error => {
-                console.error("There was an error updating the student data:", error);
-            });
+        // Gửi yêu cầu PUT để cập nhật thông tin dịch vụ
+        try {
+            await apiGetTokenClient.put(`http://localhost:3000/student/`, service);
+            console.log(">>>SERVER: ", service)
+            alert("Cập nhật thông tin dịch vụ thành công!");
+        } catch (error) {
+            console.error("Có lỗi xảy ra khi cập nhật thông tin dịch vụ:", error);
+            alert("Có lỗi xảy ra khi cập nhật thông tin dịch vụ.");
+        }
     };
 
     return (
         <div className="container mt-5">
-            <h2 className="mb-4">Update Student</h2>
+            <BackButton />
+            <h2 className="mb-4">Cập Nhật Dịch Vụ</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="firstName" className="form-label">First Name</label>
+                    <label htmlFor="MaDV" className="form-label">Mã DV</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="firstName"
-                        name="firstName"
-                        value={student.firstName}
+                        id="MaDV"
+                        name="MaDV"
+                        value={service.MaDV}
                         onChange={handleInputChange}
-                        placeholder="Enter first name"
+                        placeholder="Nhập mã dịch vụ"
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="lastName" className="form-label">Last Name</label>
+                    <label htmlFor="TenDV" className="form-label">Tên DV</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="lastName"
-                        name="lastName"
-                        value={student.lastName}
+                        id="TenDV"
+                        name="TenDV"
+                        value={service.TenDV}
                         onChange={handleInputChange}
-                        placeholder="Enter last name"
+                        placeholder="Nhập tên dịch vụ"
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        value={student.email}
-                        onChange={handleInputChange}
-                        placeholder="Enter email"
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="phone" className="form-label">Phone</label>
+                    <label htmlFor="Gia" className="form-label">Giá</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="phone"
-                        name="phone"
-                        value={student.phone}
+                        id="Gia"
+                        name="Gia"
+                        value={service.Gia}
                         onChange={handleInputChange}
-                        placeholder="Enter phone number"
+                        placeholder="Nhập giá dịch vụ"
                     />
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="address" className="form-label">Address</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="address"
-                        name="address"
-                        value={student.address}
-                        onChange={handleInputChange}
-                        placeholder="Enter address"
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Update</button>
+                <button type="submit" className="btn btn-primary">Cập Nhật</button>
             </form>
         </div>
     );
 };
 
-export default UpdateStudent;
+export default UpdateDichVu;

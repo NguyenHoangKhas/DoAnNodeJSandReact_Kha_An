@@ -10,7 +10,7 @@ const Slideshow = () => {
     ];
 
     return (
-        <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"> {/* 3000ms = 3 seconds */}
             {/* Indicators */}
             <div className="carousel-indicators">
                 {images.map((_, index) => (

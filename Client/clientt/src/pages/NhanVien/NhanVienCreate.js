@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../css/NhanVienCreate.css';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
+import BackButton from '../../components/backButton';
 
 function NhanVienCreate() {
   const [nhanVien, setNhanVien] = useState({
@@ -43,6 +44,7 @@ function NhanVienCreate() {
 
   return (
     <div className="nhanvien-create-container">
+      <BackButton />
       <h2>Thêm Nhân Viên</h2>
       <form onSubmit={handleSubmit} className="nhanvien-form">
         <div className="form-group">

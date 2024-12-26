@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
 import '../../css/RoomCreate.css';
+import BackButton from '../../components/backButton';
 
 const RoomCreate = () => {
   const [roomNumber, setRoomNumber] = useState('');
@@ -70,6 +71,7 @@ const RoomCreate = () => {
 
   return (
     <div className="add-room-container">
+      <BackButton />
       <h1 className="title">Thêm Phòng Mới</h1>
       <form onSubmit={handleSubmit} className="add-room-form">
         <label>

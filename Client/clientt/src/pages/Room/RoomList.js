@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../css/RoomList.css';
-import { useContext } from 'react';
 import { DataContext } from '../../Provider/dataProvider';
 
 const RoomList = () => {
+  const navigate = useNavigate();
   const { data } = useContext(DataContext);
+  // Room
   const [rooms, setRooms] = useState([]); // Danh sách phòng gốc
   const [filteredRooms, setFilteredRooms] = useState([]); // Danh sách phòng sau tìm kiếm
   const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
@@ -71,19 +72,18 @@ const RoomList = () => {
   if (loading) return <p className="loading">Đang tải dữ liệu...</p>;
   if (error) return <p className="error">{error}</p>;
 
-
   // Render danh sách phòng
   return (
     <div className="room-list-container">
       <h1 className="title">Danh sách phòng
-        {data?.role === "1" &&
-          (<>
-            &nbsp;<Link to="/themPhong" className="btn btn-primary"><i className="bi bi-plus"></i>
-            </Link>
-            &nbsp;<Link to="/suaPhong" className="btn btn-primary"><i className="bi bi-pen"></i>
-            </Link>
-          </>)
-        }
+        {data?.role === "1" && (
+          <>
+            &nbsp;
+            <button onClick={() => navigate("/themPhong")} className="btn btn-primary"><i className="bi bi-plus"></i></button>
+            &nbsp;
+            <button onClick={() => navigate("/suaPhong")} className="btn btn-primary"><i className="bi bi-pen"></i></button>
+          </>
+        )}
       </h1>
       {/* Ô tìm kiếm */}
       <div className="search-bar">
@@ -109,6 +109,23 @@ const RoomList = () => {
               <p className="room-type">Loại phòng: {room.RoomType}</p>
               <p className="room-price">Giá mỗi đêm: {room.PricePerNight} VND</p>
               <p className="room-availability">Trạng thái: {room.Availability ? 'Có sẵn' : 'Đã đặt'}</p>
+              <div style={{ textAlign: 'center' }}>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    const token = localStorage.getItem('token'); // Kiểm tra token
+                    const idPhong = room.RoomID;
+                    const totalMoney = room.PricePerNight;
+                    if (token) {
+                      navigate('/themKhachHang', { state: { idPhong, totalMoney } }); // Điều hướng đến trang đặt phòng nếu đã đăng nhập
+                    } else {
+                      navigate('/login'); // Điều hướng đến trang đăng nhập nếu chưa đăng nhập
+                    }
+                  }}
+                >
+                  Đặt Phòng
+                </button>
+              </div>
             </div>
           </div>
         ))}

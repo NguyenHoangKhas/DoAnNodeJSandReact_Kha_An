@@ -25,17 +25,25 @@ const Header = () => {
                             <li className={`nav-item ${location.pathname.startsWith('/phong') ? 'active' : ''}`}>
                                 <Link className="nav-link" to="/room">PHÒNG</Link>
                             </li>
-
+                            <li className={`nav-item ${location.pathname.startsWith('/listDatPhong') ? 'active' : ''}`}>
+                                <Link className="nav-link" to="/listDatPhong">HÓA ĐƠN</Link>
+                            </li>
                             {data?.role === "1" && (
                                 <>
                                     <li className={`nav-item ${location.pathname.startsWith('/nhanvien') ? 'active' : ''}`}>
                                         <Link className="nav-link" to="/nhanvien">NHÂN VIÊN</Link>
+                                    </li>
+                                    <li className={`nav-item ${location.pathname.startsWith('/datPhong') ? 'active' : ''}`}>
+                                        <Link className="nav-link" to="/datPhong">ĐẶT PHÒNG</Link>
                                     </li>
                                     <li className={`nav-item ${location.pathname.startsWith('/dichVu') ? 'active' : ''}`}>
                                         <Link className="nav-link" to="/dichVu">DỊCH VỤ</Link>
                                     </li>
                                     <li className={`nav-item ${location.pathname.startsWith('/loaiPhong') ? 'active' : ''}`}>
                                         <Link className="nav-link" to="/loaiPhong">LOẠI PHÒNG</Link>
+                                    </li>
+                                    <li className={`nav-item ${location.pathname.startsWith('/listKhachHang') ? 'active' : ''}`}>
+                                        <Link className="nav-link" to="/listKhachHang">KHÁCH HÀNG</Link>
                                     </li>
                                     <li className={`nav-item ${location.pathname.startsWith('/hoaDonList') ? 'active' : ''}`}>
                                         <Link className="nav-link" to="/hoaDonList">HÓA ĐƠN</Link>

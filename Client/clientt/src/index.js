@@ -6,19 +6,19 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 //import NhanVienCreate from './NhanVien/NhanVienCreate';
 // import NhanVienList from './NhanVien/NhanVienList';
-//import App from './App';
+import App from './App';
 //import DichVuList from './DichVu/DichVuList';
 // import LoaiPhongList from './LoaiPhong/LoaiPhongList';
 // import LoaiPhongCreate from './LoaiPhong/LoaiPhongCreate';
 //import TotalAmount from './pages/HoaDon/TotalAmount ';
-import ListBookings from './pages/Bookings/ListBookings';
+// import ListBookings from './pages/Bookings/ListBookings';
 //import AddBooking from './pages/Bookings/AddBooking';
 //import UpdateBooking from './pages/Bookings/UpdateBooking';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <ListBookings />
+      <App />
     </Router>
   </React.StrictMode>
 );

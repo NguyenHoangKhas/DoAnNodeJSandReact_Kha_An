@@ -4,11 +4,13 @@ require('dotenv').config();
 function auth(req, res, next) {
     // Danh sách các đường dẫn hoặc regex cần kiểm tra
     const white_list = [
-        /^\/$/,                     // Trang chủ
-        /^\/register$/,             // Đăng ký
-        /^\/login$/,                // Đăng nhập
-        /^\/room$/,                 // Danh sách phòng
-        /^\/room\/[a-zA-Z0-9]+$/    // Đường dẫn động như /room/:id
+        /^\/$/,
+        /^\/register$/,
+        /^\/login$/,
+        /^\/customer$/,
+        /^\/room(?:\/[a-zA-Z0-9]+)?$/,
+        /^\/themKhachHang$/,
+        /^\/datPhong$/
     ];
 
     console.log("!!!!! " + req.originalUrl);

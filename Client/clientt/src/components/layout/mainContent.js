@@ -3,6 +3,7 @@ import NhanVienCreate from '../../pages/NhanVien/NhanVienCreate';
 import NhanVienList from '../../pages/NhanVien/NhanVienList';
 import DichVuCreate from '../../pages/DichVu/DichVuCreate';
 import DichVuList from '../../pages/DichVu/DichVuList';
+import UpdateDichVu from '../../pages/DichVu/UpdateStudent ';
 import LoaiPhongCreate from '../../pages/LoaiPhong/LoaiPhongCreate';
 import LoaiPhongList from '../../pages/LoaiPhong/LoaiPhongList';
 import RoomList from '../../pages/Room/RoomList';
@@ -14,7 +15,13 @@ import NotFound from '../../pages/ErrorPage';
 import RoomList2 from '../../pages/Room/RoomList2';
 import TotalAmount from '../../pages/HoaDon/TotalAmount ';
 import HoaDonListComponent from '../../pages/HoaDon/HoaDonListComponent';
-
+import ListBookings from '../../pages/Bookings/ListBookings';
+import AddBooking from '../../pages/Bookings/AddBooking';
+import UpdateBooking from '../../pages/Bookings/UpdateBooking';
+import CreateCustomer from '../../pages/Customer/CustomerCreate';
+import CustomerList from '../../pages/Customer/CustomerList';
+import UpdateCustomer from '../../pages/Customer/UpdateCustomer';
+import UpdateRoom from '../../pages/Room/UpdateRoom';
 import { useContext } from 'react';
 import { DataContext } from '../../Provider/dataProvider';
 
@@ -31,12 +38,17 @@ const MainContent = () => {
                             <Route path="/nhanVien" element={<NhanVienList />} />
                             <Route path="/addDichVu" element={<DichVuCreate />} />
                             <Route path="/dichVu" element={<DichVuList />} />
+                            <Route path="/updateDichVu" element={<UpdateDichVu />} />
                             <Route path="/addLoaiPhong" element={<LoaiPhongCreate />} />
                             <Route path="/loaiPhong" element={<LoaiPhongList />} />
                             <Route path="/themPhong" element={<RoomCreate />} />
                             <Route path="/suaPhong" element={<RoomList2 />} />
+                            <Route path="/capNhatPhong" element={<UpdateRoom />} />
                             <Route path="/hoaDonList" element={<HoaDonListComponent />} />
                             <Route path="/tongHoaDon" element={<TotalAmount />} />
+                            <Route path="/listDatPhong" element={<ListBookings />} />
+                            <Route path="/listKhachHang" element={<CustomerList />} />
+                            <Route path="/capNhatKhachHang" element={<UpdateCustomer />} />
                         </>
                     )}
                     {/* Client Routes */}
@@ -44,6 +56,10 @@ const MainContent = () => {
                     <Route path="/room" element={<RoomList />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/datPhong" element={<AddBooking />} />
+                    <Route path="/themKhachHang" element={<CreateCustomer />} />
+                    <Route path="/listDatPhong" element={<ListBookings />} />
+                    <Route path="/capNhatDatPhong" element={<UpdateBooking />} />
                     {/* Route Not Found */}
                     <Route path="*" element={<NotFound />} /> {/* Bắt tất cả các đường dẫn không hợp lệ */}
                 </Routes>

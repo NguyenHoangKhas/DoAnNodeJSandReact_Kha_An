@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
-import { Link } from 'react-router-dom';
-import '../../css/NhanVienList.css'
+import { useNavigate } from "react-router-dom"; // For navigation
+import '../../css/NhanVienList.css';
 
 function DichVuList() {
+  const navigate = useNavigate();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,6 +15,7 @@ function DichVuList() {
       setServices(response.data.result);
     } catch (error) {
       console.error("Lỗi khi tải dữ liệu:", error);
+      alert("Có lỗi xảy ra khi tải dữ liệu.");
     } finally {
       setLoading(false);
     }
@@ -23,9 +25,11 @@ function DichVuList() {
   const deleteService = async (madv) => {
     if (window.confirm(`Bạn có chắc chắn muốn xóa dịch vụ với mã ${madv}?`)) {
       try {
-        await apiGetTokenClient.delete(`http://localhost:3000/student/${madv}`);
-        alert("Xóa thành công!");
-        setServices(services.filter((service) => service.MaDV !== madv));
+        const response = await apiGetTokenClient.delete(`http://localhost:3000/student/${madv}`);
+        if (response.status === 200) {
+          alert("Xóa thành công!");
+          setServices(services.filter((service) => service.MaDV !== madv));
+        }
       } catch (error) {
         console.error("Lỗi khi xóa dữ liệu:", error);
         alert("Có lỗi xảy ra khi xóa dịch vụ.");
@@ -45,9 +49,7 @@ function DichVuList() {
     <div className="container containerCustom mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 className="text-dark">Danh Sách Dịch Vụ</h2>
-        <Link to="/addDichVu" className="btn btn-primary">
-          Thêm Dịch Vụ
-        </Link>
+        <button className='"btn btn-primary">' onClick={() => navigate("/addDichVu")}>addDichVu</button>
       </div>
       <div className="table tableCustom">
         <table className="table table-hover table-striped">
@@ -66,15 +68,11 @@ function DichVuList() {
                 <td>{service.TenDV}</td>
                 <td>{service.Gia}</td>
                 <td>
-                  <button
-                    onClick={() => alert(`Chỉnh sửa dịch vụ: ${service.MaDV}`)}
-                    className="btn btn-warning text-dark btn-sm me-2"
-                  >
-                    Chỉnh Sửa
-                  </button>
+                  <button className='"btn btn-primary">' onClick={() => navigate("/updateDichVu")}>Cập Nhật</button>
+                  &nbsp;
                   <button
                     onClick={() => deleteService(service.MaDV)}
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-danger"
                   >
                     Xóa
                   </button>

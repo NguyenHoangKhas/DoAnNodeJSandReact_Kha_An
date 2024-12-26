@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
+import BackButton from '../../components/backButton';
 import '../../css/LoaiPhongCreate.css';
 
 const LoaiPhongCreate = () => {
@@ -34,6 +35,7 @@ const LoaiPhongCreate = () => {
 
     return (
         <div className="form-container">
+            <BackButton />
             <h1>Thêm loại phòng</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">

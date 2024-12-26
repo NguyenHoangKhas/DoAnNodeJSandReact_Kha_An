@@ -1,16 +1,20 @@
-// UpdateRoom.js
 import React, { useState } from "react";
-import axios from "axios";
+import apiGetTokenClient from '../../middleWare/getTokenClient';
+import { useLocation } from "react-router-dom";
+import BackButton from '../../components/backButton';
 
 const UpdateRoom = () => {
+  const { state } = useLocation();
+  const { room } = state || {}; // Room data passed from RoomList2
+
   const [formData, setFormData] = useState({
-    roomid: "",
-    roomnumber: "",
-    roomtype: "",
-    pricepernight: "",
-    availability: false,
-    loaiphongid: "",
-    imageurl: "",
+    roomid: room?.RoomID || "",
+    roomnumber: room?.RoomNumber || "",
+    roomtype: room?.RoomType || "",
+    pricepernight: room?.PricePerNight || "",
+    availability: room?.Availability || false,
+    loaiphongid: room?.LoaiPhongID || "",
+    imageurl: room?.ImageUrl || "",
   });
 
   const handleChange = (e) => {
@@ -22,9 +26,10 @@ const UpdateRoom = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log(">>>UPDATE ROOM: ", formData)
     e.preventDefault();
-    axios
-      .put("http://localhost:3000/room", formData)
+    apiGetTokenClient
+      .put(`http://localhost:3000/room/`, formData)
       .then((response) => {
         alert("Cập nhật thông tin phòng thành công!");
         console.log(response.data);
@@ -37,6 +42,7 @@ const UpdateRoom = () => {
 
   return (
     <div className="container mt-5">
+      <BackButton />
       <h2 className="text-center">Cập Nhật Thông Tin Phòng</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -47,7 +53,7 @@ const UpdateRoom = () => {
             name="roomid"
             value={formData.roomid}
             onChange={handleChange}
-            required
+            disabled
           />
         </div>
         <div className="form-group">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiGetTokenClient from '../../middleWare/getTokenClient';
 
 const UpdateCustomer = ({ customerId }) => {
     const [customer, setCustomer] = useState({
@@ -12,7 +12,7 @@ const UpdateCustomer = ({ customerId }) => {
 
     useEffect(() => {
         // Lấy dữ liệu khách hàng hiện tại từ API
-        axios.get(`/customer/${customerId}`)
+        apiGetTokenClient.get(`/customer/${customerId}`)
             .then(response => {
                 setCustomer(response.data.result);
             })
@@ -30,7 +30,7 @@ const UpdateCustomer = ({ customerId }) => {
         e.preventDefault();
 
         // Gửi yêu cầu cập nhật dữ liệu khách hàng
-        axios.put(`http://localhost:3000/customer`, customer)
+        apiGetTokenClient.put(`http://localhost:3000/customer`, customer)
             .then(response => {
                 alert("Customer updated successfully!");
             })

@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../../css/NhanVienList.css';
 
 const LoaiPhongList = () => {
+    const navigate = useNavigate();
     const [loaiPhong, setLoaiPhong] = useState([]);
     const [editingItem, setEditingItem] = useState(null);
     const [formData, setFormData] = useState({
         tenloaiphong: '',
         mota: '',
         succhua: '',
+    });
+    const [modalData, setModalData] = useState({
+        show: false,
+        message: '',
+        onConfirm: null,
     });
 
     useEffect(() => {
@@ -26,16 +32,29 @@ const LoaiPhongList = () => {
     };
 
     const deleteLoaiPhong = async (maloaiphong) => {
-        if (window.confirm('Bạn có chắc chắn muốn xóa loại phòng này?')) {
-            try {
-                await apiGetTokenClient.delete(`http://localhost:3000/loaiphong/${maloaiphong}`);
-                fetchLoaiPhong(); // Refresh data after deletion
-                alert('Xóa loại phòng thành công!');
-            } catch (error) {
-                console.error('Error deleting LoaiPhong:', error);
-                alert('Có lỗi xảy ra khi xóa loại phòng.');
-            }
-        }
+        setModalData({
+            show: true,
+            message: 'Bạn có chắc chắn muốn xóa loại phòng này?',
+            onConfirm: async () => {
+                try {
+                    console.log(maloaiphong)
+                    await apiGetTokenClient.delete(`http://localhost:3000/loaiphong/${maloaiphong}`);
+                    fetchLoaiPhong(); // Refresh data after deletion
+                    setModalData({
+                        show: true,
+                        message: 'Xóa loại phòng thành công!',
+                        onConfirm: null,
+                    });
+                } catch (error) {
+                    console.error('Error deleting LoaiPhong:', error);
+                    setModalData({
+                        show: true,
+                        message: 'Có lỗi xảy ra khi xóa loại phòng.',
+                        onConfirm: null,
+                    });
+                }
+            },
+        });
     };
 
     const startEditing = (item) => {
@@ -61,24 +80,34 @@ const LoaiPhongList = () => {
                 maloaiphong: editingItem,
                 ...formData,
             });
-            alert('Cập nhật thành công!');
+            setModalData({
+                show: true,
+                message: 'Cập nhật thành công!',
+                onConfirm: null,
+            });
             setEditingItem(null);
             fetchLoaiPhong(); // Refresh data after update
         } catch (error) {
             console.error('Error updating LoaiPhong:', error);
-            alert('Có lỗi xảy ra khi cập nhật loại phòng.');
+            setModalData({
+                show: true,
+                message: 'Có lỗi xảy ra khi cập nhật loại phòng.',
+                onConfirm: null,
+            });
         }
+    };
+
+    const handleModalClose = () => {
+        setModalData({ show: false, message: '', onConfirm: null });
     };
 
     return (
         <div className="container containerCustom mt-4">
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2>Danh Sách Loại Phòng</h2>
-                <Link to="/addLoaiPhong" className="btn btn-primary">
-                    Thêm Loại Phòng
-                </Link>
+                <button onClick={() => navigate("/addLoaiPhong")} className="btn btn-primary">Thêm Loại Phòng</button>
             </div>
-            <div className="table-responsive tableCustom"> {/* Thêm lớp này để làm cho bảng phản hồi */}
+            <div className="table-responsive tableCustom">
                 <table className="table table-hover table-striped">
                     <thead className="table-dark">
                         <tr>
@@ -151,6 +180,36 @@ const LoaiPhongList = () => {
                     </tbody>
                 </table>
             </div>
+
+            {/* Bootstrap Modal */}
+            {modalData.show && (
+                <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Thông báo</h5>
+                                <button type="button" className="btn-close" onClick={handleModalClose}></button>
+                            </div>
+                            <div className="modal-body">
+                                <p>{modalData.message}</p>
+                            </div>
+                            <div className="modal-footer">
+                                {modalData.onConfirm ? (
+                                    <>
+                                        <button type="button" className="btn btn-secondary" onClick={handleModalClose}>Hủy</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => {
+                                            modalData.onConfirm();
+                                            handleModalClose();
+                                        }}>Xác nhận</button>
+                                    </>
+                                ) : (
+                                    <button type="button" className="btn btn-primary" onClick={handleModalClose}>Đóng</button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
