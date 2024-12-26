@@ -5,24 +5,27 @@ import BackButton from "../../components/backButton";
 import { DataContext } from "../../Provider/dataProvider";
 
 const ListBookings = () => {
-  const { data } = useContext(DataContext); // Lấy thông tin từ context
+  const { data } = useContext(DataContext);
   const [bookings, setBookings] = useState([]);
+  const [modalData, setModalData] = useState({
+    show: false,
+    message: "",
+    onConfirm: null,
+  });
   const navigate = useNavigate();
 
-  // Memoize fetchBookings to prevent unnecessary re-renders
   const fetchBookings = useCallback(() => {
     apiGetTokenClient
       .get("http://localhost:3000/booking")
       .then((response) => {
         const allBookings = response.data.result || [];
-        // Lọc dữ liệu dựa trên CustomerID
         if (data?.role === "1") {
-          setBookings(allBookings); // Quản trị viên, hiển thị tất cả bookings
+          setBookings(allBookings);
         } else {
           const filteredBookings = allBookings.filter(
             (booking) => booking.CustomerID === data?.id
           );
-          setBookings(filteredBookings); // Người dùng, chỉ hiển thị bookings của chính họ
+          setBookings(filteredBookings);
         }
       })
       .catch((error) => console.error("Error fetching bookings:", error));
@@ -33,15 +36,35 @@ const ListBookings = () => {
   }, [fetchBookings]);
 
   const handleDelete = (bookingId) => {
-    if (window.confirm("Are you sure you want to delete this booking?")) {
-      apiGetTokenClient
-        .delete(`http://localhost:3000/booking/${bookingId}`)
-        .then(() => {
-          alert("Booking deleted successfully!");
-          fetchBookings(); // Refresh list after deletion
-        })
-        .catch((error) => console.error("Error deleting booking:", error));
-    }
+    console.log(">>>BOOKING ID: ", bookingId)
+    setModalData({
+      show: true,
+      message: "Are you sure you want to delete this booking?",
+      onConfirm: () => {
+        apiGetTokenClient
+          .delete(`http://localhost:3000/booking/${bookingId}`)
+          .then(() => {
+            setModalData({
+              show: true,
+              message: "Booking deleted successfully!",
+              onConfirm: null,
+            });
+            fetchBookings();
+          })
+          .catch((error) => {
+            console.error("Error deleting booking:", error);
+            setModalData({
+              show: true,
+              message: "Error occurred while deleting the booking.",
+              onConfirm: null,
+            });
+          });
+      },
+    });
+  };
+
+  const handleModalClose = () => {
+    setModalData({ show: false, message: "", onConfirm: null });
   };
 
   const handleUpdate = (booking) => {
@@ -101,6 +124,58 @@ const ListBookings = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Modal */}
+      {modalData.show && (
+        <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Thông Báo</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={handleModalClose}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <p>{modalData.message}</p>
+              </div>
+              <div className="modal-footer">
+                {modalData.onConfirm ? (
+                  <>
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={handleModalClose}
+                    >
+                      Hủy
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => {
+                        modalData.onConfirm();
+                        handleModalClose();
+                      }}
+                    >
+                      Xác Nhận
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleModalClose}
+                  >
+                    Đóng
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

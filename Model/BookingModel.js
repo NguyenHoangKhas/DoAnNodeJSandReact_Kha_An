@@ -54,6 +54,7 @@ module.exports = function () {
     };
 
     this.delete = async function (id, result) {
+        console.log(">>>DELETE ID: ", id)
         var pool = await conn;
         var sqlStrin = "DELETE FROM Bookings WHERE BookingID=@bookingid";
         return await pool.request()

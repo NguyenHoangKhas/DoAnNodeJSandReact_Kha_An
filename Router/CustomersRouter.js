@@ -11,5 +11,5 @@ module.exports = function (app) {
     //Insert du lieu
     app.post('/customer', CustomersController.addNew);
     //xoa du lieu
-    app.delete('/customer/:maloaiphong', CustomersController.delete);
+    app.delete('/customer/:customerID', CustomersController.delete);
 }

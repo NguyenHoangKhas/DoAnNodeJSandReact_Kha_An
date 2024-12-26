@@ -25,9 +25,11 @@ const Header = () => {
                             <li className={`nav-item ${location.pathname.startsWith('/phong') ? 'active' : ''}`}>
                                 <Link className="nav-link" to="/room">PHÒNG</Link>
                             </li>
-                            <li className={`nav-item ${location.pathname.startsWith('/listDatPhong') ? 'active' : ''}`}>
-                                <Link className="nav-link" to="/listDatPhong">HÓA ĐƠN</Link>
-                            </li>
+                            {data?.role !== "1" && (
+                                <li className={`nav-item ${location.pathname.startsWith('/listDatPhong') ? 'active' : ''}`}>
+                                    <Link className="nav-link" to="/listDatPhong">HÓA ĐƠN</Link>
+                                </li>
+                            )}
                             {data?.role === "1" && (
                                 <>
                                     <li className={`nav-item ${location.pathname.startsWith('/nhanvien') ? 'active' : ''}`}>

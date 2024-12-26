@@ -21,7 +21,8 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    model.delete(req.body.madv, function (err, data) {
+    const bookingID = req.params.bookingid
+    model.delete(bookingID, function (err, data) {
         res.send({ result: data, error: err });
     });
 };

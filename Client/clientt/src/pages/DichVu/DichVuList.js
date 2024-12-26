@@ -49,7 +49,7 @@ function DichVuList() {
     <div className="container containerCustom mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 className="text-dark">Danh Sách Dịch Vụ</h2>
-        <button className='"btn btn-primary">' onClick={() => navigate("/addDichVu")}>addDichVu</button>
+        <button className='"btn btn-primary">' onClick={() => navigate("/addDichVu")}>Thêm Dịch Vụ</button>
       </div>
       <div className="table tableCustom">
         <table className="table table-hover table-striped">
