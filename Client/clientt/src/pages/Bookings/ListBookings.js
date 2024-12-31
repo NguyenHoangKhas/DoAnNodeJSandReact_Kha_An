@@ -4,6 +4,8 @@ import apiGetTokenClient from "../../middleWare/getTokenClient";
 import BackButton from "../../components/backButton";
 import { DataContext } from "../../Provider/dataProvider";
 
+const BASE_URL = "http://localhost:3000";
+
 const ListBookings = () => {
   const { data } = useContext(DataContext);
   const [bookings, setBookings] = useState([]);
@@ -16,51 +18,45 @@ const ListBookings = () => {
 
   const fetchBookings = useCallback(() => {
     apiGetTokenClient
-      .get("http://localhost:3000/booking")
+      .get(`${BASE_URL}/booking`)
       .then((response) => {
         const allBookings = response.data.result || [];
-        if (data?.role === "1") {
-          setBookings(allBookings);
-        } else {
-          const filteredBookings = allBookings.filter(
-            (booking) => booking.CustomerID === data?.id
-          );
-          setBookings(filteredBookings);
-        }
+        setBookings(allBookings);
       })
       .catch((error) => console.error("Error fetching bookings:", error));
-  }, [data?.id, data?.role]);
+  }, []);
 
   useEffect(() => {
     fetchBookings();
   }, [fetchBookings]);
 
   const handleDelete = (bookingId) => {
-    console.log(">>>BOOKING ID: ", bookingId)
     setModalData({
       show: true,
       message: "Are you sure you want to delete this booking?",
-      onConfirm: () => {
-        apiGetTokenClient
-          .delete(`http://localhost:3000/booking/${bookingId}`)
-          .then(() => {
-            setModalData({
-              show: true,
-              message: "Booking deleted successfully!",
-              onConfirm: null,
-            });
-            fetchBookings();
-          })
-          .catch((error) => {
-            console.error("Error deleting booking:", error);
-            setModalData({
-              show: true,
-              message: "Error occurred while deleting the booking.",
-              onConfirm: null,
-            });
-          });
-      },
+      onConfirm: () => deleteBooking(bookingId),
     });
+  };
+
+  const deleteBooking = (bookingId) => {
+    apiGetTokenClient
+      .delete(`${BASE_URL}/booking/${bookingId}`)
+      .then(() => {
+        setModalData({
+          show: true,
+          message: "Booking deleted successfully!",
+          onConfirm: null,
+        });
+        fetchBookings();
+      })
+      .catch((error) => {
+        console.error("Error deleting booking:", error);
+        setModalData({
+          show: true,
+          message: "Error occurred while deleting the booking.",
+          onConfirm: null,
+        });
+      });
   };
 
   const handleModalClose = () => {
@@ -94,12 +90,10 @@ const ListBookings = () => {
         <tbody>
           {bookings.map((booking) => (
             <tr key={booking.BookingID}>
-              {data?.role === "1" && (
-                <>
-                  <td>{booking.BookingID}</td>
-                  <td>{booking.CustomerID}</td>
-                </>
-              )}
+              <>
+                <td>{booking.BookingID}</td>
+                <td>{booking.CustomerID}</td>
+              </>
               <td>{booking.RoomID}</td>
               <td>{booking.CheckInDate}</td>
               <td>{booking.CheckOutDate}</td>
@@ -111,23 +105,24 @@ const ListBookings = () => {
                 >
                   Cập Nhật
                 </button>
-                {data?.role === "1" && (
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(booking.BookingID)}
-                  >
-                    Xóa
-                  </button>
-                )}
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleDelete(booking.BookingID)}
+                >
+                  Xóa
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Modal */}
       {modalData.show && (
-        <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+        <div
+          className="modal show d-block"
+          tabIndex="-1"
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">

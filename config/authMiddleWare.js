@@ -10,7 +10,8 @@ function auth(req, res, next) {
         /^\/customer$/,
         /^\/room(?:\/[a-zA-Z0-9]+)?$/,
         /^\/themKhachHang$/,
-        /^\/datPhong$/
+        /^\/datPhong$/,
+        /^\/hoaDonList$/,
     ];
 
     console.log("!!!!! " + req.originalUrl);

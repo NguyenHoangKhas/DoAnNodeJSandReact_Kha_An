@@ -3,7 +3,8 @@ module.exports = function (app) {
     //goi den du lieu
     app.get('/hoadon', HoaDonController.getList);
     //uptade table dichvu
-    app.put('/hoadon', HoaDonController.update);
+    app.put('/hoadon/:mahd', HoaDonController.update);
+
 
 
     //Insert du lieu
@@ -14,9 +15,12 @@ module.exports = function (app) {
 
     app.get('/hoadon/total/day/:ngay', HoaDonController.getTotalByDay);
 
+    app.get('/hoadon/total/year/:nam', HoaDonController.getTotalByYear);
     // Tính tổng tiền theo tuần
     app.get('/hoadon/total/week/:tuan/:nam', HoaDonController.getTotalByWeek);
 
     // Tính tổng tiền theo tháng
     app.get('/hoadon/total/month/:thang/:nam', HoaDonController.getTotalByMonth);
+
+
 }

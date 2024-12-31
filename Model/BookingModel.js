@@ -14,6 +14,7 @@ module.exports = function () {
     };
 
     this.create = async function (newData, result) {
+        console.log(">>>NEW DATA: ", newData)
         var pool = await conn;
         var sqlStrin = "INSERT INTO Bookings (CustomerID, RoomID, CheckInDate, CheckOutDate, TotalPrice) VALUES(@customerid, @roomid, @checkindate, @checkoutdate, @totalprice)";
 

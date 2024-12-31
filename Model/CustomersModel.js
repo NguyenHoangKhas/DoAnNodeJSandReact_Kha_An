@@ -23,7 +23,7 @@ module.exports = function () {
             .input('lastName', sql.VarChar, newData.LastName)
             .input('email', sql.VarChar, newData.Email)
             .input('phone', sql.VarChar, newData.Phone)
-            .input('userid', sql.VarChar, newData.UserID.length > 0 ? newData.UserID : null) // Gửi NULL nếu UserID rỗng
+            .input('userid', sql.Int, newData.UserID)
 
             .query(sqlStrin, function (err, data) {
                 if (err) {

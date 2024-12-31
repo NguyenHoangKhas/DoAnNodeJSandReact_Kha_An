@@ -45,7 +45,7 @@ const RegisterPage = () => {
 
             if (result.success) {
                 openNotification("success", "Đăng ký thành công", result.message || "Tài khoản của bạn đã được tạo.");
-                navigate("/"); // Chuyển hướng về trang chính
+                navigate("/login"); // Chuyển hướng về trang chính
             } else {
                 openNotification("error", "Đăng ký thất bại", result.message || "Đã xảy ra lỗi khi đăng ký.");
             }

@@ -15,6 +15,8 @@ import NotFound from '../../pages/ErrorPage';
 import RoomList2 from '../../pages/Room/RoomList2';
 import TotalAmount from '../../pages/HoaDon/TotalAmount ';
 import HoaDonListComponent from '../../pages/HoaDon/HoaDonListComponent';
+import UpdateHoaDon from '../../pages/HoaDon/UpdateHoaDon ';
+import RevenueChart from '../../pages/HoaDon/RevenueChart';
 import ListBookings from '../../pages/Bookings/ListBookings';
 import AddBooking from '../../pages/Bookings/AddBooking';
 import UpdateBooking from '../../pages/Bookings/UpdateBooking';
@@ -44,11 +46,13 @@ const MainContent = () => {
                             <Route path="/themPhong" element={<RoomCreate />} />
                             <Route path="/suaPhong" element={<RoomList2 />} />
                             <Route path="/capNhatPhong" element={<UpdateRoom />} />
-                            <Route path="/hoaDonList" element={<HoaDonListComponent />} />
                             <Route path="/tongHoaDon" element={<TotalAmount />} />
-                            <Route path="/listDatPhong" element={<ListBookings />} />
-                            <Route path="/listKhachHang" element={<CustomerList />} />
+                            <Route path="/capNhatHoaDon" element={<UpdateHoaDon />} />
+                            <Route path="/bieudoHoaDon" element={<RevenueChart />} />
                             <Route path="/capNhatKhachHang" element={<UpdateCustomer />} />
+                            <Route path="/listKhachHang" element={<CustomerList />} />
+                            <Route path="/listDatPhong" element={<ListBookings />} />
+                            <Route path="/capNhatDatPhong" element={<UpdateBooking />} />
                         </>
                     )}
                     {/* Client Routes */}
@@ -58,8 +62,7 @@ const MainContent = () => {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/datPhong" element={<AddBooking />} />
                     <Route path="/themKhachHang" element={<CreateCustomer />} />
-                    <Route path="/listDatPhong" element={<ListBookings />} />
-                    <Route path="/capNhatDatPhong" element={<UpdateBooking />} />
+                    <Route path="/hoaDonList" element={<HoaDonListComponent />} />
                     {/* Route Not Found */}
                     <Route path="*" element={<NotFound />} /> {/* Bắt tất cả các đường dẫn không hợp lệ */}
                 </Routes>

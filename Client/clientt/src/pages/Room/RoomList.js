@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../../css/RoomList.css';
 import { DataContext } from '../../Provider/dataProvider';
-
+import axios from 'axios';
 const RoomList = () => {
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
@@ -115,9 +114,10 @@ const RoomList = () => {
                   onClick={() => {
                     const token = localStorage.getItem('token'); // Kiểm tra token
                     const idPhong = room.RoomID;
+                    const namePhong = room.RoomNumber;
                     const totalMoney = room.PricePerNight;
                     if (token) {
-                      navigate('/themKhachHang', { state: { idPhong, totalMoney } }); // Điều hướng đến trang đặt phòng nếu đã đăng nhập
+                      navigate('/themKhachHang', { state: { idPhong, totalMoney, namePhong } }); // Điều hướng đến trang đặt phòng nếu đã đăng nhập
                     } else {
                       navigate('/login'); // Điều hướng đến trang đăng nhập nếu chưa đăng nhập
                     }
