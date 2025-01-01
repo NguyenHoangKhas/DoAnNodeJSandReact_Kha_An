@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
 import '../../css/RoomCreate.css';
 import BackButton from '../../components/backButton';
+import { notification } from "antd";
 
 const RoomCreate = () => {
   const [roomNumber, setRoomNumber] = useState('');
@@ -10,7 +11,15 @@ const RoomCreate = () => {
   const [availability, setAvailability] = useState(true);
   const [loaiphongid, setLoaiPhongID] = useState('');
   const [imageFile, setImageFile] = useState(null); // Lưu trữ tệp hình ảnh
-  const [message, setMessage] = useState('');
+
+  // Hiển thị thông báo
+  const openNotification = (type, message, description) => {
+    notification[type]({
+      message,
+      description,
+      placement: "topRight",
+    });
+  };
 
   // Xử lý tải ảnh
   const handleImageUpload = async () => {
@@ -27,10 +36,10 @@ const RoomCreate = () => {
       );
       // Giả sử máy chủ trả về tên tệp mới
       const newImageUrl = response.data.imageUrl; // Lưu tên tệp mới
-      setMessage('Tải ảnh lên thành công!');
+      openNotification('success', 'Tải ảnh thành công!', 'Hình ảnh đã được tải lên thành công.');
       return newImageUrl; // Trả về tên tệp mới
     } catch (error) {
-      setMessage('Có lỗi xảy ra khi tải ảnh!');
+      openNotification('error', 'Lỗi tải ảnh!', 'Có lỗi xảy ra khi tải ảnh lên.');
       throw error; // Ném lỗi để xử lý bên ngoài
     }
   };
@@ -50,13 +59,13 @@ const RoomCreate = () => {
 
       const response = await apiGetTokenClient.post('http://localhost:3000/room', newRoom);
       if (response.data.error) {
-        setMessage('Thêm phòng thất bại: ' + response.data.error);
+        openNotification('error', 'Thêm phòng thất bại!', response.data.error);
       } else {
-        setMessage('Phòng đã được thêm thành công!');
+        openNotification('success', 'Thêm phòng thành công!', 'Phòng đã được thêm thành công.');
         clearForm();
       }
     } catch (error) {
-      setMessage('Có lỗi xảy ra khi thêm phòng!');
+      openNotification('error', 'Lỗi thêm phòng!', 'Có lỗi xảy ra khi thêm phòng.');
     }
   };
 
@@ -127,13 +136,11 @@ const RoomCreate = () => {
             accept="image/*"
             onChange={(e) => {
               setImageFile(e.target.files[0]); // Lưu tệp hình ảnh
-              // Không cần phải thiết lập imageUrl ở đây vì nó sẽ được thiết lập sau khi tải lên
             }}
           />
         </label>
         <button type="submit" className="add-room-button">Thêm Phòng</button>
       </form>
-      {message && <p className="message">{message}</p>}
     </div>
   );
 };

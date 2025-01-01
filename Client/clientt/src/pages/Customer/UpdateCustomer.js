@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
+import { useLocation, useNavigate } from "react-router-dom";
+import { notification } from "antd";
 
-const UpdateCustomer = ({ customerId }) => {
+const UpdateCustomer = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const dataCustomer = location.state?.customer;
+    const customerId = dataCustomer.CustomerID;
+    const userID = dataCustomer.UserID;
     const [customer, setCustomer] = useState({
         firstName: '',
         lastName: '',
         email: '',
         phone: '',
-        userId: ''
+        userId: parseInt(userID),
+        customerid: customerId
     });
-
-    useEffect(() => {
-        // Lấy dữ liệu khách hàng hiện tại từ API
-        apiGetTokenClient.get(`/customer/${customerId}`)
-            .then(response => {
-                setCustomer(response.data.result);
-            })
-            .catch(error => {
-                console.log("Error fetching customer:", error);
-            });
-    }, [customerId]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -28,11 +25,17 @@ const UpdateCustomer = ({ customerId }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         // Gửi yêu cầu cập nhật dữ liệu khách hàng
+        console.log("REACT: ", customer);
+
         apiGetTokenClient.put(`http://localhost:3000/customer`, customer)
             .then(response => {
-                alert("Customer updated successfully!");
+                notification.success({
+                    message: "success",
+                    description: `Cập nhật khách hàng ${customerId} thành công!`,
+                    placement: "topRight",
+                });
+                navigate("/listKhachHang");
             })
             .catch(error => {
                 console.log("Error updating customer:", error);
@@ -41,10 +44,10 @@ const UpdateCustomer = ({ customerId }) => {
 
     return (
         <div className="container mt-5">
-            <h2 className="mb-4">Update Customer</h2>
+            <h2 className="mb-4">Cập Nhật Khách Hàng</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="firstName" className="form-label">First Name</label>
+                    <label htmlFor="firstName" className="form-label">Họ</label>
                     <input
                         type="text"
                         className="form-control"
@@ -56,7 +59,7 @@ const UpdateCustomer = ({ customerId }) => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="lastName" className="form-label">Last Name</label>
+                    <label htmlFor="lastName" className="form-label">Tên</label>
                     <input
                         type="text"
                         className="form-control"
@@ -80,7 +83,7 @@ const UpdateCustomer = ({ customerId }) => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="phone" className="form-label">Phone</label>
+                    <label htmlFor="phone" className="form-label">Số điện thoại</label>
                     <input
                         type="text"
                         className="form-control"
@@ -103,7 +106,7 @@ const UpdateCustomer = ({ customerId }) => {
                         placeholder="Enter user ID"
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Update</button>
+                <button type="submit" className="btn btn-primary">Cập nhật</button>
             </form>
         </div>
     );

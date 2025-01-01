@@ -1,0 +1,28 @@
+.revenue-chart-container {
+    margin: 2rem 5rem;
+    /* Đặt margin cho container */
+    padding: 1rem;
+    /* Đặt padding cho container */
+    background-color: #f9f9f9;
+    /* Nền màu nhạt */
+    border-radius: 8px;
+    /* Bo góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Hiệu ứng bóng */
+}
+
+.chart-title {
+    text-align: center;
+    /* Căn giữa tiêu đề */
+    font-size: 1.5rem;
+    /* Kích thước font chữ */
+    color: #333;
+    /* Màu chữ */
+    margin-bottom: 1rem;
+    /* Khoảng cách dưới tiêu đề */
+}
+
+.bar-chart {
+    margin: 0 auto;
+    /* Căn giữa biểu đồ */
+}

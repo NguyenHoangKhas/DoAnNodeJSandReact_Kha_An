@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import apiGetTokenClient from "../../middleWare/getTokenClient";
-import { DataContext } from "../../Provider/dataProvider";
 import { useNavigate } from "react-router-dom"; // For navigation
 
 function CustomerList() {
     const navigate = useNavigate();
-    const { data } = useContext(DataContext);
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -57,6 +55,10 @@ function CustomerList() {
         });
     };
 
+    const handleUpdate = (customer) => {
+        navigate("/capNhatKhachHang", { state: { customer } });
+    };
+
     const handleModalClose = () => {
         setModalData({ show: false, message: "", onConfirm: null });
     };
@@ -72,27 +74,16 @@ function CustomerList() {
     return (
         <div className="container mt-4">
             <h2>
-                Customer List
-                {data?.role === "1" && (
-                    <>
-                        &nbsp;
-                        <button
-                            onClick={() => navigate("/themKhachHang")}
-                            className="btn btn-primary"
-                        >
-                            <i className="bi bi-plus"></i>
-                        </button>
-                    </>
-                )}
+                Danh Sách Khách Hàng
             </h2>
             <table className="table table-bordered table-striped mt-3">
                 <thead className="table-dark">
                     <tr>
-                        <th>Customer ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>ID Khách Hàng</th>
+                        <th>Tên</th>
+                        <th>Họ</th>
                         <th>Email</th>
-                        <th>Phone</th>
+                        <th>Số Điện Thoại</th>
                         <th>User ID</th>
                         <th>Chức năng</th>
                     </tr>
@@ -110,7 +101,7 @@ function CustomerList() {
                                 <td>
                                     <button
                                         className="btn btn-warning btn-sm mr-2"
-                                        onClick={() => navigate(`/capNhatKhachHang/${customer.CustomerID}`)}
+                                        onClick={() => handleUpdate(customer)}
                                     >
                                         Cập Nhật
                                     </button>

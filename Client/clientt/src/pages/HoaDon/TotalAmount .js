@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
+import BackButton from '../../components/backButton';
 
 const TotalAmount = () => {
   const [totalAmount, setTotalAmount] = useState(null);
@@ -45,6 +46,7 @@ const TotalAmount = () => {
 
   return (
     <div>
+      <BackButton />
       <h2>Tính Tổng Tiền</h2>
       <div>
         <label>

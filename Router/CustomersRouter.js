@@ -1,5 +1,3 @@
-const auth = require('../config/authMiddleWare');
-
 module.exports = function (app) {
     var CustomersController = require('../Contronller/CustomersController')
     //goi den du lieu

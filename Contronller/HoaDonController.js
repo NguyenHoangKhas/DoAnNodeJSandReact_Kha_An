@@ -7,6 +7,7 @@ exports.getList = function (req, res) {
     });
 };
 
+
 exports.addNew = function (req, res) {
     model.create(req.body, function (err, data) {
         res.send({ result: data, error: err });
@@ -15,9 +16,15 @@ exports.addNew = function (req, res) {
 
 exports.update = function (req, res) {
     const { mahd } = req.params; // Lấy mã hóa đơn từ tham số URL
+    const { ngayTT, trangthai } = req.body; // Lấy trạng thái và thời điểm thanh toán từ body
+
+    // Kiểm tra xem `trangthai` và `ngayTT` có được cung cấp không
+    if (trangthai === undefined || ngayTT === undefined) {
+        return res.status(400).send({ error: 'Thiếu thông tin cần thiết để cập nhật hóa đơn.' });
+    }
 
     // Gọi hàm cập nhật trong model
-    model.update(mahd, function (err, data) {
+    model.update(mahd, { trangthai, ngayTT }, function (err, data) {
         if (err) {
             // Nếu có lỗi, gửi phản hồi lỗi với mã trạng thái 500
             console.error('Lỗi khi cập nhật hóa đơn:', err);

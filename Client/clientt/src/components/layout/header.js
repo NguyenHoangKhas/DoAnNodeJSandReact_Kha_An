@@ -36,8 +36,8 @@ const Header = () => {
                                     <li className={`nav-item ${location.pathname.startsWith('/nhanvien') ? 'active' : ''}`}>
                                         <Link className="nav-link" to="/nhanvien">NHÂN VIÊN</Link>
                                     </li>
-                                    <li className={`nav-item ${location.pathname.startsWith('/datPhong') ? 'active' : ''}`}>
-                                        <Link className="nav-link" to="/datPhong">ĐẶT PHÒNG</Link>
+                                    <li className={`nav-item ${location.pathname.startsWith('/listDatPhong') ? 'active' : ''}`}>
+                                        <Link className="nav-link" to="/listDatPhong">ĐẶT PHÒNG</Link>
                                     </li>
                                     <li className={`nav-item ${location.pathname.startsWith('/dichVu') ? 'active' : ''}`}>
                                         <Link className="nav-link" to="/dichVu">DỊCH VỤ</Link>

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { notification } from 'antd';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from '../../components/backButton';
 
 const UpdateRoom = () => {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const { room } = state || {}; // Room data passed from RoomList2
 
@@ -26,16 +28,24 @@ const UpdateRoom = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log(">>>UPDATE ROOM: ", formData)
     e.preventDefault();
     apiGetTokenClient
       .put(`http://localhost:3000/room/`, formData)
       .then((response) => {
-        alert("Cập nhật thông tin phòng thành công!");
+        notification.success({
+          message: 'Thành công',
+          description: 'Cập nhật thông tin phòng thành công!',
+          placement: 'topRight',
+        });
         console.log(response.data);
+        navigate("/suaPhong");
       })
       .catch((error) => {
-        alert("Cập nhật thông tin phòng thất bại!");
+        notification.error({
+          message: 'Thất bại',
+          description: 'Cập nhật thông tin phòng thất bại!',
+          placement: 'topRight',
+        });
         console.error(error);
       });
   };

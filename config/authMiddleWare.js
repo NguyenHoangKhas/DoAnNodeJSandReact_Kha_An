@@ -7,11 +7,15 @@ function auth(req, res, next) {
         /^\/$/,
         /^\/register$/,
         /^\/login$/,
-        /^\/customer$/,
+        /^\/customer$/, // Chỉ định đường dẫn /customer
         /^\/room(?:\/[a-zA-Z0-9]+)?$/,
         /^\/themKhachHang$/,
         /^\/datPhong$/,
         /^\/hoaDonList$/,
+        /^\/hoadon$/,
+        /^\/customer$/,
+        /^\/customer(?:\/[0-9]+)?$/,
+        /^\/hoadon(?:\/[0-9]+)?$/
     ];
 
     console.log("!!!!! " + req.originalUrl);

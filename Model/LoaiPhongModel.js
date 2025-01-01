@@ -18,8 +18,8 @@ module.exports = function () {
         var sqlStrin = "INSERT INTO LoaiPhong (TenLoaiPhong, MoTa, SucChua) VALUES(@tenloaiphong, @mota, @succhua)";
 
         return await pool.request()
-            .input('tenloaiphong', sql.VarChar, newData.tenloaiphong)
-            .input('mota', sql.VarChar, newData.mota)
+            .input('tenloaiphong', sql.NVarChar, newData.tenloaiphong)
+            .input('mota', sql.NVarChar, newData.mota)
             .input('succhua', sql.Int, newData.succhua)
 
             .query(sqlStrin, function (err, data) {

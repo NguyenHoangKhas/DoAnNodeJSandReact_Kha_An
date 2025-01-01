@@ -2,11 +2,13 @@ const Customers = require('../Model/CustomersModel');
 const model = new Customers();
 const Bookings = require('../Model/BookingModel');
 const modelBooking = new Bookings();
+
 exports.getList = function (req, res) {
     model.getAll(function (err, data) {
         res.send({ result: data, error: err });
     });
 };
+
 
 exports.addNew = function (req, res) {
     model.create(req.body, function (err, data) {
@@ -22,8 +24,6 @@ exports.update = function (req, res) {
 
 exports.delete = async function (req, res) {
     const customerId = req.params.customerID;
-    console.log(">>>CUSTOMERID NODEJS: ", customerId);
-
     try {
         // Thực hiện xóa trong modelBooking
         const bookingResult = await new Promise((resolve, reject) => {

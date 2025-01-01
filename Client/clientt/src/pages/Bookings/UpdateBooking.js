@@ -1,23 +1,16 @@
 // UpdateBooking.js
-import React, { useState, useContext } from "react";
-import { useLocation } from "react-router-dom"; // For navigation
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import apiGetTokenClient from '../../middleWare/getTokenClient';
-import { DataContext } from "../../Provider/dataProvider";
 import BackButton from '../../components/backButton';
+import { notification } from "antd";
 
 const UpdateBooking = () => {
-  const { data } = useContext(DataContext); // Lấy thông tin từ context
+  const navigate = useNavigate();
   const location = useLocation();
   const booking = location.state?.booking;
 
-  const initialFormData = data?.role === "1" ? {
-    bookingid: "",
-    customerid: "",
-    roomid: "",
-    checkindate: "",
-    checkoutdate: "",
-    totalprice: "",
-  } : {
+  const initialFormData = {
     bookingid: booking.BookingID,
     customerid: booking.CustomerID,
     roomid: booking.RoomID,
@@ -36,20 +29,28 @@ const UpdateBooking = () => {
     e.preventDefault();
     apiGetTokenClient
       .put("http://localhost:3000/booking", formData)
-      .then(() => alert("Booking updated successfully!"))
+      .then(() => {
+        notification.success({
+          message: "success",
+          description: "Cập nhật đặt phòng thành công!",
+          placement: "topRight",
+        });
+        navigate('/listDatPhong');
+      }
+      )
       .catch((error) => console.error("Error updating booking:", error));
   };
 
   return (
     <div className="container mt-5">
       <BackButton />
-      <h1 className="text-center">Update Booking</h1>
+      <h1 className="text-center">Cập Nhật Đặt Phòng</h1>
       <form className="mt-4" onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Sửa Phòng {formData.roomid}</label>
         </div>
         <div className="form-group">
-          <label>Check-in Date</label>
+          <label>Ngày nhận phòng</label>
           <input
             type="date"
             className="form-control"
@@ -60,7 +61,7 @@ const UpdateBooking = () => {
           />
         </div>
         <div className="form-group">
-          <label>Check-out Date</label>
+          <label>Ngày trả phòng</label>
           <input
             type="date"
             className="form-control"
@@ -71,7 +72,7 @@ const UpdateBooking = () => {
           />
         </div>
         <div className="form-group">
-          <label>Total Price</label>
+          <label>Tổng giá</label>
           <input
             type="number"
             className="form-control"
@@ -80,11 +81,10 @@ const UpdateBooking = () => {
             value={formData.totalprice}
             onChange={handleChange}
             required
-            disabled
           />
         </div>
         <button type="submit" className="btn btn-warning btn-block">
-          Update Booking
+          Cập Nhật
         </button>
       </form>
     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
 import { useNavigate } from "react-router-dom"; // For navigation
 import '../../css/NhanVienList.css';
+import { notification } from "antd";
 
 function DichVuList() {
   const navigate = useNavigate();
@@ -27,7 +28,11 @@ function DichVuList() {
       try {
         const response = await apiGetTokenClient.delete(`http://localhost:3000/student/${madv}`);
         if (response.status === 200) {
-          alert("Xóa thành công!");
+          notification.success({
+            message: "success",
+            description: `Xóa dịch vụ có Mã DV là ${madv}!`,
+            placement: "topRight",
+          });
           setServices(services.filter((service) => service.MaDV !== madv));
         }
       } catch (error) {

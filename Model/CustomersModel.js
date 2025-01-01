@@ -13,14 +13,16 @@ module.exports = function () {
         });
     };
 
+
+
     this.create = async function (newData, result) {
         console.log(">>>Server NewData: ", newData)
         var pool = await conn;
         var sqlStrin = "INSERT INTO Customers (FirstName, LastName, Email, Phone, UserID) VALUES(@firstName, @lastName, @email, @phone, @userid)";
 
         return await pool.request()
-            .input('firstName', sql.VarChar, newData.FirstName)
-            .input('lastName', sql.VarChar, newData.LastName)
+            .input('firstName', sql.NVarChar, newData.FirstName)
+            .input('lastName', sql.NVarChar, newData.LastName)
             .input('email', sql.VarChar, newData.Email)
             .input('phone', sql.VarChar, newData.Phone)
             .input('userid', sql.Int, newData.UserID)
@@ -35,14 +37,15 @@ module.exports = function () {
     };
 
     this.update = async function (newData, result) {
+        console.log(">>>NEWDATA: ", newData);
         var pool = await conn;
         var sqlStrin = "UPDATE Customers SET FirstName=@firstName, LastName=@lastName, Email=@email, Phone=@phone, UserID=@userid WHERE CustomerID=@customerid";
         return await pool.request()
-            .input('firstName', sql.VarChar, newData.firstName)
-            .input('lastName', sql.VarChar, newData.lastName)
+            .input('firstName', sql.NVarChar, newData.firstName)
+            .input('lastName', sql.NVarChar, newData.lastName)
             .input('email', sql.VarChar, newData.email)
             .input('phone', sql.VarChar, newData.phone)
-            .input('userid', sql.Int, newData.userid)
+            .input('userid', sql.Int, newData.userId)
             .input('customerid', sql.Int, newData.customerid)
             .query(sqlStrin, function (err, data) {
                 if (err) {

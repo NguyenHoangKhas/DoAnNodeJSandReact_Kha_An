@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../css/NhanVienCreate.css';
 import apiGetTokenClient from '../../middleWare/getTokenClient';
 import BackButton from '../../components/backButton';
+import { notification } from 'antd';
 
 function NhanVienCreate() {
   const [nhanVien, setNhanVien] = useState({
@@ -21,7 +22,11 @@ function NhanVienCreate() {
 
     // Kiểm tra các trường không được để trống
     if (!nhanVien.firstnamenv || !nhanVien.lastnamenv || !nhanVien.chucvu || !nhanVien.diachi) {
-      alert("Vui lòng điền đầy đủ thông tin!");
+      notification.warning({
+        message: 'Cảnh báo',
+        description: 'Vui lòng điền đầy đủ thông tin!',
+        placement: 'topRight',
+      });
       return;
     }
 
@@ -30,15 +35,27 @@ function NhanVienCreate() {
       .post('http://localhost:3000/nhanvien', nhanVien)
       .then((response) => {
         if (response.data.error) {
-          alert(`Lỗi: ${response.data.error}`);
+          notification.error({
+            message: 'Lỗi',
+            description: `Lỗi: ${response.data.error}`,
+            placement: 'topRight',
+          });
         } else {
-          alert('Thêm nhân viên thành công!');
+          notification.success({
+            message: 'Thành công',
+            description: 'Thêm nhân viên thành công!',
+            placement: 'topRight',
+          });
           setNhanVien({ firstnamenv: '', lastnamenv: '', chucvu: '', diachi: '' });
         }
       })
       .catch((error) => {
         console.error('Error adding new employee:', error);
-        alert('Có lỗi xảy ra khi thêm nhân viên.');
+        notification.error({
+          message: 'Lỗi',
+          description: 'Có lỗi xảy ra khi thêm nhân viên.',
+          placement: 'topRight',
+        });
       });
   };
 

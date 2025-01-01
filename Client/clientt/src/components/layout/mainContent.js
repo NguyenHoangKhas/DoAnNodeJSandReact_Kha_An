@@ -15,7 +15,6 @@ import NotFound from '../../pages/ErrorPage';
 import RoomList2 from '../../pages/Room/RoomList2';
 import TotalAmount from '../../pages/HoaDon/TotalAmount ';
 import HoaDonListComponent from '../../pages/HoaDon/HoaDonListComponent';
-import UpdateHoaDon from '../../pages/HoaDon/UpdateHoaDon ';
 import RevenueChart from '../../pages/HoaDon/RevenueChart';
 import ListBookings from '../../pages/Bookings/ListBookings';
 import AddBooking from '../../pages/Bookings/AddBooking';
@@ -47,7 +46,6 @@ const MainContent = () => {
                             <Route path="/suaPhong" element={<RoomList2 />} />
                             <Route path="/capNhatPhong" element={<UpdateRoom />} />
                             <Route path="/tongHoaDon" element={<TotalAmount />} />
-                            <Route path="/capNhatHoaDon" element={<UpdateHoaDon />} />
                             <Route path="/bieudoHoaDon" element={<RevenueChart />} />
                             <Route path="/capNhatKhachHang" element={<UpdateCustomer />} />
                             <Route path="/listKhachHang" element={<CustomerList />} />

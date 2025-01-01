@@ -35,24 +35,28 @@ module.exports = function () {
             });
     };
 
-    this.update = async function (id, result) {
+    this.update = async function (id, { trangthai, ngayTT }, result) {
         try {
             const pool = await conn; // Kết nối đến cơ sở dữ liệu
-            const sqlString = "UPDATE HoaDon SET TrangThai=@trangthai WHERE MaHD=@mahd";
+            const sqlString = "UPDATE HoaDon SET TrangThai=@trangthai, NgayTT=@ngayTT WHERE MaHD=@mahd";
 
+            console.log(">>>TRANG THAI: ", trangthai, ngayTT);
             // Thực hiện truy vấn cập nhật
             const data = await pool.request()
-                .input('trangthai', sql.Bit, true) // Dữ liệu trạng thái
+                .input('trangthai', sql.Bit, trangthai) // Dữ liệu trạng thái
+                .input('ngayTT', sql.DateTime, ngayTT) // Dữ liệu thời gian thanh toán
                 .input('mahd', sql.Int, id) // Thêm ID hóa đơn vào truy vấn
                 .query(sqlString);
 
             // Trả lại ID của hóa đơn đã được cập nhật
-            result(null, { MaHD: id, TrangThai: true }); // Hoặc bạn có thể lấy giá trị mới từ cơ sở dữ liệu nếu cần
+            result(null, { MaHD: id, TrangThai: trangthai, NgayTT: ngayTT }); // Hoặc bạn có thể lấy giá trị mới từ cơ sở dữ liệu nếu cần
         } catch (err) {
             // Xử lý lỗi và trả lại thông báo lỗi
+            console.error('Lỗi khi cập nhật hóa đơn:', err);
             result(err, null);
         }
     };
+
 
 
     this.delete = async function (id, result) {
